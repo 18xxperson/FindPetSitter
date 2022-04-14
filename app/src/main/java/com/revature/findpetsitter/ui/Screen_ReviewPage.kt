@@ -31,7 +31,6 @@ fun Screen_ReviewPage() {
         topBar = { TopAppBar(title = { Text("Leave a Review", color = Color.White) }, backgroundColor = Color(0xff0f9d58)) },
         content = {myContent()}
     )
-
 }
 
 @Composable
