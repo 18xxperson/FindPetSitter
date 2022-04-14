@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.room.Room
 import com.revature.findpetsitter.data.PetDatabase
@@ -50,7 +51,14 @@ fun SitterCard(firstname:String,lastname:String,rating:Double)
     ){
        Column() {
            Text(text = "$firstname $lastname")
-           Text("$rating")
+           Text("rating: $rating")
        }
     }
+}
+
+@Preview
+@Composable
+fun PreviewCard()
+{
+    SitterCard(firstname = "Jon", lastname = "Work", rating = 3.5)
 }
