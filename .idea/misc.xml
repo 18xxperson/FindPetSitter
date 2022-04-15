@@ -3,7 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+
         <entry key="..\:/Users/John/AndroidStudioProjects/FindPetSitter/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2215" />
+
+        <entry key="../../../../layout/compose-model-1649877410596.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1649885790852.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1649905295622.xml" value="0.16976351351351351" />
+        <entry key="../../../../layout/compose-model-1649905298695.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1649906731629.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1649907322665.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1649908389896.xml" value="0.2657407407407407" />
+        <entry key="../../../../layout/compose-model-1649950146706.xml" value="1.036101083032491" />
+        <entry key="../../../../layout/compose-model-1649953921070.xml" value="0.16976351351351351" />
+        <entry key="../../../../layout/compose-model-1650034379539.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1650038373614.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1650038482856.xml" value="0.33" />
+
       </map>
     </option>
   </component>

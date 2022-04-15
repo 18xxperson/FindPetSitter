@@ -34,11 +34,22 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import kotlinx.coroutines.delay
+import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
+import com.revature.findpetsitter.data.PetDatabase
+import com.revature.findpetsitter.ui.Addpet
+import com.revature.findpetsitter.ui.Screen_ProfileDetails
+import com.revature.findpetsitter.ui.displayList
+import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
+import com.revature.findpetsitter.viewmodel.SitterViewModel
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
+            val sitterViewModel=ViewModelProvider(this).get(SitterViewModel::class.java)
             FindPetSitterTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -46,11 +57,14 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Navigation()
+                    displayList(type = "HouseSitter",sitterViewModel)
+
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun Navigation() {
@@ -156,4 +170,5 @@ fun DefaultPreview() {
     }
 }
 */
+
 
