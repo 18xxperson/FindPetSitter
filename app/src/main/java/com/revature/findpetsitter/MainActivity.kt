@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.revature.findpetsitter.ui.ScheduleService
 import com.revature.findpetsitter.ui.Addpet
 import com.revature.findpetsitter.ui.Screen_ProfileDetails
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
@@ -31,4 +32,15 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
+}
 
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    FindPetSitterTheme {
+        Greeting("Android")
+    }
+}
