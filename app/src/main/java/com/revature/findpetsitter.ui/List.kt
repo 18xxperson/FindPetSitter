@@ -11,31 +11,29 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.room.Room
-import com.revature.findpetsitter.data.PetDatabase
+import com.revature.findpetsitter.viewmodel.SitterViewModel
 
 @Composable
-fun displayList(type:String)
-{
-    val context= LocalContext.current
-    val db = Room.databaseBuilder(
-        context,
-        PetDatabase::class.java, "Users database"
-    ).build()
-    val dao=db.sitterdao()
-    val sitters=dao.getspecificSitters(type)
-    LazyColumn(){
-         items(sitters){  sitter->
-             SitterCard(firstname = sitter.firstname,
-                 lastname =sitter.lastname ,
-                 rating = sitter.rating)
+fun displayList(type:String,sitterViewModel: SitterViewModel) {
+    val list = sitterViewModel.fetchtypeofsitter(type).value
+    LazyColumn()
+    {
 
-         }
+        if (list != null) {
+            items(items = list.subList(0,list.size)) { sitter ->
+                SitterCard(
+                    firstname = sitter.firstname,
+                    lastname = sitter.lastname,
+                    rating = sitter.rating
+                )
+
+            }
+        }
     }
 }
+
 
 @Composable
 fun SitterCard(firstname:String,lastname:String,rating:Double)
