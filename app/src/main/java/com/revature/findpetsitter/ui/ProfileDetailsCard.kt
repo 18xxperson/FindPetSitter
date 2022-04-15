@@ -1,19 +1,19 @@
 package com.revature.findpetsitter.ui
 
+import android.app.DatePickerDialog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -24,11 +24,12 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.revature.findpetsitter.R
-
+import java.util.*
 
 
 @Composable
 fun ProfileDetailsCard(firstName:String, lastName:String, type:String, aboutMe:String, price:Float, image:String, rating:Float) {
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -108,9 +109,33 @@ fun ProfileDetailsCard(firstName:String, lastName:String, type:String, aboutMe:S
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
-                    Button(onClick = { /*TODO*/ }) {
-                        Text(text = "See Schedule")
+                    Row() {
+                        Button(onClick = {
+                            val calendar = Calendar.getInstance()
+                            val year = calendar.get(Calendar.YEAR)
+                            val month = calendar.get(Calendar.MONTH)
+                            val day = calendar.get(Calendar.DAY_OF_MONTH)
+                            calendar.time = Date()
+                            val datePickerDialog = DatePickerDialog(
+                                context,
+                                { DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                                }, year, month, day
+                            )
+                            datePickerDialog.show()
+                        }) {
+                            Text(text = "See Availability")
+                        }
+                        Button(onClick = { /* Schedule Service */ },
+                            modifier = Modifier.padding(horizontal = 4.dp),
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff02a60f))) {
+                            Icon(
+                                painter = painterResource(R.drawable.outline_today_black_24dp),
+                                contentDescription = "Schedule",
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                     }
+
 
                 }
 
