@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -52,23 +54,51 @@ fun SignIn(navController: NavHostController) {
     ) {
 
         val email = remember { mutableStateOf(TextFieldValue()) }
+        val emailErrorState = remember{ mutableStateOf(false)}
         val password = remember { mutableStateOf(TextFieldValue()) }
+        val passwordErrorState = remember{ mutableStateOf(false)}
 
         Text(text = "Sign In", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
-            label = { Text(text = "Username") },
+            label = { Text(text = "Email Address") },
             value = email.value,
-            onValueChange = { email.value = it })
+            onValueChange = {
+                if(emailErrorState.value) {
+                    emailErrorState.value = false
+                }
+                email.value = it },
+                isError = emailErrorState.value,)
+                if(emailErrorState.value) {
+                    Text(text = "Required", color = Color.Red)
+                }
 
         Spacer(modifier = Modifier.height(20.dp))
+
+        val passwordVisibility = remember{ mutableStateOf(true)}
+
         TextField(
             label = { Text(text = "Password") },
             value = password.value,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })
+            onValueChange = {
+                if(passwordErrorState.value) {
+                    passwordErrorState.value = false
+                }
+                password.value = it },
+                isError = passwordErrorState.value,
+                trailingIcon = {
+                    IconButton(onClick = {
+                        passwordVisibility.value = !passwordVisibility.value
+                    }) {
+ //                       Icon(
+//                            imageVector = if(passwordVisibility.value) Icons.Default. else Icons.Default.Visibility,
+//                        )
+                    }
+                }
+            )
 
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {

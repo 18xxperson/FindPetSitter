@@ -64,7 +64,13 @@ fun Navigation() {
             SplashScreen(navController = navController)
         }
         composable(Routes.MainScreen.route) {
-            MainScreen()
+            MainScreen(navController = navController)
+        }
+        composable(Routes.SignIn.route) {
+            SignIn(navController = navController)
+        }
+        composable(Routes.CreateAccount.route) {
+            CreateAccount(navController = navController)
         }
     }
 }
@@ -91,14 +97,15 @@ fun SplashScreen(navController: NavHostController) {
     // Image
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()) {
-        Image(painter = painterResource(id = R.drawable.dogimage),
+        Image(painter = painterResource(id = R.drawable.project3logo),
             contentDescription = "Logo",
-            modifier = Modifier.scale(scale.value))
+            modifier = Modifier.scale(scale.value)
+                                .size(250.dp))
     }
 }
 
 @Composable
-fun MainScreen( /*navController: NavController*/ ) {
+fun MainScreen( navController: NavHostController ) {
 
     val context = LocalContext.current
 
@@ -111,11 +118,12 @@ fun MainScreen( /*navController: NavController*/ ) {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxHeight()
                 ) */
-            Button(onClick = {
+            Button(onClick = { navController.navigate(Routes.CreateAccount.route)
             }, modifier = Modifier
+                .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .padding(20.dp),
-                shape = RoundedCornerShape(20.dp))
+                shape = RoundedCornerShape(50.dp))
             {
                 Text("Create Account", fontWeight = FontWeight.ExtraBold)
             }
@@ -127,38 +135,25 @@ fun MainScreen( /*navController: NavController*/ ) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically)
             {
-                Image(painter = painterResource(id = R.drawable.dogimage),
+                Image(painter = painterResource(id = R.drawable.project3logo),
                     contentDescription = "Logo",
                     modifier = Modifier.padding(10.dp))
 
                 ClickableText(text = AnnotatedString(text = "Sign In"),
-                    onClick = {
+                    onClick = { navController.navigate(Routes.SignIn.route)
                     })
             } //end row
-/*            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.5f)
-                    .align(alignment = Alignment.BottomCenter),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Bottom
-            ) {
-                Button(onClick = {
-                }, shape = RoundedCornerShape(20.dp))
-                {
-                    Text("Create Account", fontWeight = FontWeight.ExtraBold)
-                }
-            } //end second column */
+
         } //end box
     } //end main column
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     FindPetSitterTheme {
         MainScreen()
     }
 }
-
+*/
 
