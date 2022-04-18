@@ -16,6 +16,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
 sealed class Routes(val route: String) {
+
+    object SplashScreen : Routes ("splashscreen")
+    object MainScreen : Routes ("mainscreen")
+    object SignIn : Routes("signin")
+    object CreateAccount : Routes("createaccount")
     object SplashScreen : Routes ("SplashScreen")
     object MainScreen : Routes ("MainScreen")
     object SignIn : Routes("SignIn")
@@ -69,4 +74,5 @@ fun BottNavBar(navController:NavHostController) {
         }
 
     }
+
 }
