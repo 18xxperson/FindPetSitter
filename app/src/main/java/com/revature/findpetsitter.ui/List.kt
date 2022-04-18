@@ -12,12 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.data.Sitters
 import com.revature.findpetsitter.data.sitterlist
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 
+
 @Composable
-fun displayList(type:String,sitterViewModel: SitterViewModel) {
+fun displayList(navController: NavController,type: String) {
 
         LazyColumn()
         {
@@ -26,7 +29,7 @@ fun displayList(type:String,sitterViewModel: SitterViewModel) {
                         firstname = sitter.firstname,
                         lastname = sitter.lastname,
                         rating = sitter.rating,
-                        type
+                        type, navController = navController
                     )
 
                 }
@@ -37,13 +40,13 @@ fun displayList(type:String,sitterViewModel: SitterViewModel) {
 
 
 @Composable
-fun SitterCard(firstname:String,lastname:String,rating:Double,type:String)
+fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navController: NavController)
 {
     Card(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()
-            .clickable {  }
+         //   .clickable { navController.navigate(Routes.ProfileDetails.route) }
             .wrapContentHeight(),
         shape = MaterialTheme.shapes.medium,
         elevation = 5.dp,

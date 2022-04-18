@@ -27,7 +27,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -35,10 +34,13 @@ import androidx.navigation.compose.rememberNavController
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import kotlinx.coroutines.delay
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import androidx.room.Room
 import com.revature.findpetsitter.data.PetDatabase
 import com.revature.findpetsitter.ui.Addpet
 import com.revature.findpetsitter.ui.Screen_ProfileDetails
+import com.revature.findpetsitter.ui.chooseService
 import com.revature.findpetsitter.ui.displayList
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
@@ -57,7 +59,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Navigation()
-                    displayList(type = "HouseSitter",sitterViewModel)
 
                 }
             }
@@ -86,6 +87,25 @@ fun Navigation() {
         composable(Routes.CreateAccount.route) {
             CreateAccount(navController = navController)
         }
+        composable(Routes.AddPet.route){
+            Addpet(navController)
+        }
+        composable(Routes.ChooseService.route){
+            chooseService(navHostController = navController)
+        }
+        composable(Routes.ListView.route+"/{type}",
+            arguments = listOf(
+                navArgument("type")
+                {
+                    type= NavType.StringType
+                }
+            ))
+        {
+            val type=it.arguments?.getString("type")
+            if (type != null) {
+                displayList(type = type, navController = navController)
+            }
+        }
     }
 }
 
@@ -113,8 +133,9 @@ fun SplashScreen(navController: NavHostController) {
         modifier = Modifier.fillMaxSize()) {
         Image(painter = painterResource(id = R.drawable.project3logo),
             contentDescription = "Logo",
-            modifier = Modifier.scale(scale.value)
-                                .size(250.dp))
+            modifier = Modifier
+                .scale(scale.value)
+                .size(250.dp))
     }
 }
 
