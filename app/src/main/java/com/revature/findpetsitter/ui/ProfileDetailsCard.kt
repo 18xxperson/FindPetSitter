@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.revature.findpetsitter.R
@@ -28,7 +29,7 @@ import java.util.*
 
 
 @Composable
-fun ProfileDetailsCard(firstName:String, lastName:String, type:String, aboutMe:String, price:Float, image:String, rating:Float) {
+fun ProfileDetailsCard(firstName:String, lastName:String, type:String, aboutMe:String, price:Float, image:String, rating:Float,navController: NavController) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -155,18 +156,3 @@ fun ProfileDetailsCard(firstName:String, lastName:String, type:String, aboutMe:S
         }
     }
 }
-
-@Preview
-@Composable
-fun previewDetailCard() {
-    ProfileDetailsCard(
-        firstName = "Shirley",
-        lastName = "Margo",
-        type = "At-Home Service",
-        aboutMe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
-                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
-                "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        price = 75f,
-        image = "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
-        rating = 4.5f
-    )}
