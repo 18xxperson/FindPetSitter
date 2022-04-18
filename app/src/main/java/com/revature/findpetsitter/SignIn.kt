@@ -135,6 +135,7 @@ fun SignIn() {
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
                 onClick = {
+
                           when {
                               email.value.text.isEmpty() -> {
                                   emailErrorState.value = true
@@ -150,6 +151,9 @@ fun SignIn() {
                                   Toast.LENGTH_SHORT).show()
                               }
                           }
+
+                          navController.navigate(Routes.AddPet.route)
+
                 },
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
