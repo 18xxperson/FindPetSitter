@@ -17,10 +17,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 sealed class Routes(val route: String) {
 
-    object SplashScreen : Routes ("SplashScreen")
-    object MainScreen : Routes ("MainScreen")
-    object SignIn : Routes("SignIn")
-    object CreateAccount : Routes("CreateAccount")
+
+    object SplashScreen : Routes ("splashscreen")
+    object MainScreen : Routes ("mainscreen")
+    object SignIn : Routes("signin")
+    object CreateAccount : Routes("createaccount")
     object ListView: Routes("List")
     object AddPet: Routes("Addpet")
     object ProfileDetails: Routes("ProfileDetails")

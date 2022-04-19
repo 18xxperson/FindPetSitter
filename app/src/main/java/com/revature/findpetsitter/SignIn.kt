@@ -50,7 +50,9 @@ import com.revature.findpetsitter.Routes
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SignIn(navController:NavController) {
+
+fun SignIn(navController: NavController) {
+
     Box(modifier = Modifier.fillMaxSize()) {
 
     }
@@ -152,7 +154,7 @@ fun SignIn(navController:NavController) {
                               }
                           }
 
-                          navController.navigate(Routes.AddPet.route)
+//                          navController.navigate(Routes.AddPet.route)
 
                 },
                 shape = RoundedCornerShape(50.dp),
