@@ -38,12 +38,13 @@ fun AppointmentScreen() {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 4.dp, bottom = 8.dp)
+                            .padding(top = 4.dp, bottom = 4.dp)
                             .background(Color.LightGray)
                     ) {
                         Text(modifier = Modifier
-                            .padding(2.dp),
-                            text = "Current Scheduled Services")
+                            .padding(4.dp),
+                            style = MaterialTheme.typography.body1,
+                            text = "Scheduled Services")
                     }
                 }
 
@@ -83,7 +84,7 @@ fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Flo
             .fillMaxWidth()
             .padding(8.dp)) {
         Card(Modifier.fillMaxWidth(),
-            elevation = 10.dp) {
+            elevation = 6.dp) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.padding(12.dp)) {
                     Row() {
@@ -151,7 +152,7 @@ fun PastApptCard(fname:String,lname:String,startDate:String,endDate:String,price
     ) {
         Card(
             Modifier.fillMaxWidth(),
-            elevation = 10.dp
+            elevation = 6.dp
         ) {
             Row() {
                 Column(Modifier.padding(12.dp)) {
@@ -192,11 +193,12 @@ fun ListDivier(text: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 4.dp,bottom = 8.dp)
+            .padding(top = 8.dp,bottom = 8.dp)
             .background(Color.LightGray)
     ) {
         Text(modifier = Modifier
-            .padding(2.dp),
+            .padding(4.dp),
+            style = MaterialTheme.typography.body1,
             text = "Past Services")
     }
 }
