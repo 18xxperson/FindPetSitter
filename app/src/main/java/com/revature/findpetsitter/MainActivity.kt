@@ -86,10 +86,10 @@ fun Navigation() {
             MainScreen(navController = navController)
         }
         composable(Routes.SignIn.route) {
-            SignIn()
+            SignIn(navController = navController)
         }
         composable(Routes.CreateAccount.route) {
-            CreateAccount()
+            CreateAccount(navController = navController)
         }
         composable(Routes.AddPet.route){
             Addpet(navController)
@@ -129,7 +129,7 @@ fun SplashScreen(navController: NavController) {
                 } )
         )
         delay(5000L)
-        navController.navigate(Routes.CreateAccount.route)
+        navController.navigate(Routes.MainScreen.route)
     }
 
     // Image
@@ -157,13 +157,8 @@ fun MainScreen(navController: NavController) {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxHeight()
                 )
-                Button(onClick = {
-                    //test button
-                }, modifier = Modifier.align(Alignment.Center)) {
-                    Text(text = "Simple Button")
-                }
 
-                Button(onClick = { }, modifier = Modifier
+                Button(onClick = {navController.navigate(Routes.CreateAccount.route) }, modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .padding(20.dp),

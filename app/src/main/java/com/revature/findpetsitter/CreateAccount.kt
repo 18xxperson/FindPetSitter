@@ -30,7 +30,7 @@ import androidx.navigation.NavHostController
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 
 @Composable
-fun CreateAccount() {
+fun CreateAccount(navController: NavController) {
     val context = LocalContext.current
     val name = remember{mutableStateOf(TextFieldValue())}
     val email = remember{mutableStateOf(TextFieldValue())}
@@ -193,7 +193,7 @@ fun CreateAccount() {
                             context, "Account Created",
                             Toast.LENGTH_SHORT
                         ).show()
-//                      put nav function to Sign In screen here
+                      navController.navigate(Routes.SignIn.route)
                     }
                 }
             },
