@@ -16,7 +16,7 @@ class SitterRepository(application: Application) {
     }
     fun fetchsittertype(type:String):LiveData<List<Sitters>>
     {
-        return sitterDaO.getspecificSitters(type = type)
+        return sitterDaO.getspecificSitters(types = type)
     }
 
     suspend fun insertsitter(sitters: Sitters)
