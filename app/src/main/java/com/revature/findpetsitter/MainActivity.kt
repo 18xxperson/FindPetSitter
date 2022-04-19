@@ -86,7 +86,7 @@ fun Navigation() {
             MainScreen(navController = navController)
         }
         composable(Routes.SignIn.route) {
-            SignIn()
+            SignIn(navController)
         }
         composable(Routes.CreateAccount.route) {
             CreateAccount()

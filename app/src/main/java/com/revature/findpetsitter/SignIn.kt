@@ -15,8 +15,8 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -50,7 +50,7 @@ import com.revature.findpetsitter.Routes
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SignIn() {
+fun SignIn(navController:NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
 
     }
@@ -111,9 +111,9 @@ fun SignIn() {
                     passwordVisibility.value = !passwordVisibility.value
                 }) {
                     Icon(
-                        imageVector = if (passwordVisibility.value) Icons.Filled.Visibility
+                        imageVector = if (passwordVisibility.value) Icons.Filled.Add
                         else
-                            Icons.Filled.VisibilityOff,
+                            Icons.Filled.AddCircle,
                         contentDescription = "Password Visibility"
                     )
                 }
