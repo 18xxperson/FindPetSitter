@@ -22,12 +22,6 @@ fun ProfileReview(fname:String, lname:String,rating:Float,headline:String,body:S
             .absolutePadding(left = 8.dp, right = 8.dp, top = 16.dp, bottom = 16.dp)
             ) {
             Row(modifier = Modifier.fillMaxWidth()) {
-//                Text(
-//                    text = rating.toString(),
-//                    style = MaterialTheme.typography.h6,
-//                    color = MaterialTheme.colors.onSurface,
-//                    modifier = Modifier.padding(bottom = 4.dp)
-//                )
                 repeat(rating.toInt()) {
                     Image(
                         painter = painterResource(R.drawable.star3_ccexpress),
