@@ -149,10 +149,12 @@ fun SignIn(navController: NavController) {
                                   Toast.makeText(context,
                                   "Signed in successfully",
                                   Toast.LENGTH_SHORT).show()
+//                                  navController.navigate(Routes.AddPet.route)
                               }
+
                           }
 
-//                          navController.navigate(Routes.AddPet.route)
+
 
                 },
                 shape = RoundedCornerShape(50.dp),
