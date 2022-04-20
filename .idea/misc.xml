@@ -3,9 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-
-        <entry key="..\:/Users/John/AndroidStudioProjects/FindPetSitter/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2215" />
-
         <entry key="../../../../layout/compose-model-1649877410596.xml" value="0.22" />
         <entry key="../../../../layout/compose-model-1649885790852.xml" value="0.33" />
         <entry key="../../../../layout/compose-model-1649905295622.xml" value="0.16976351351351351" />
@@ -18,7 +15,19 @@
         <entry key="../../../../layout/compose-model-1650034379539.xml" value="0.33" />
         <entry key="../../../../layout/compose-model-1650038373614.xml" value="0.67" />
         <entry key="../../../../layout/compose-model-1650038482856.xml" value="0.33" />
-
+        <entry key="../../../../layout/compose-model-1650050835313.xml" value="0.3972222222222222" />
+        <entry key="../../../../layout/compose-model-1650053966588.xml" value="0.3972222222222222" />
+        <entry key="../../../../layout/compose-model-1650291483294.xml" value="0.3108108108108108" />
+        <entry key="../../../../layout/compose-model-1650294806036.xml" value="0.3108108108108108" />
+        <entry key="../../../../layout/compose-model-1650295575345.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1650296962905.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1650297929537.xml" value="0.39537037037037037" />
+        <entry key="../../../../layout/compose-model-1650379556729.xml" value="0.3108108108108108" />
+        <entry key="../../../../layout/compose-model-1650379577495.xml" value="0.39537037037037037" />
+        <entry key="../../../../layout/compose-model-1650379783262.xml" value="0.39537037037037037" />
+        <entry key="../../../../layout/compose-model-1650398062173.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1650402111994.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1650466474008.xml" value="0.21283783783783783" />
       </map>
     </option>
   </component>
