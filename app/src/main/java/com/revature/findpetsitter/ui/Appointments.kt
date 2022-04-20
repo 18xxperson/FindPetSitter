@@ -15,31 +15,73 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.revature.findpetsitter.BottNavBar
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AppointmentScreen() {
+fun AppointmentScreen(navController: NavHostController) {
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
-            title = { Text("Scheduled Services") })
-    }) {
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            stickyHeader {
-                Row(modifier = Modifier.fillMaxWidth().background(Color.LightGray)) {
-                    Text(text = "Current Scheduled Services")
+            title = {Text("Lawyer Search")})
+    },
+        bottomBar = {
+            BottNavBar(navController)
+        }) {
+        Column(Modifier.fillMaxSize()) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(.95f)
+            ) {
+                stickyHeader {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 4.dp)
+                            .background(Color.LightGray)
+                    ) {
+                        Text(modifier = Modifier
+                            .padding(4.dp),
+                            style = MaterialTheme.typography.body1,
+                            text = "Scheduled Services")
+                    }
                 }
-            }
-            items(currentappts) { appt ->
-                ApptCard(fname=appt.fname,lname=appt.lname,startDate=appt.startDate,endDate=appt.endDate,price=appt.price,type=appt.type)
+
+                items(currentappts) { appt ->
+                    ApptCard(
+                        fname = appt.fname,
+                        lname = appt.lname,
+                        startDate = appt.startDate,
+                        endDate = appt.endDate,
+                        price = appt.price,
+                        type = appt.type
+                    )
+                }
+                stickyHeader {
+                    ListDivier(text = "Past Services")
+                }
+                    items(pastappts) { appt ->
+                        PastApptCard(
+                            fname = appt.fname,
+                            lname = appt.lname,
+                            startDate = appt.startDate,
+                            endDate = appt.endDate,
+                            price = appt.price,
+                            type = appt.type
+                        )
+                    }
+                }
             }
         }
     }
-}
-
+//}
 
 @Composable
 fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Float,type:String) {
@@ -47,76 +89,143 @@ fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Flo
         Modifier
             .fillMaxWidth()
             .padding(8.dp)) {
-        Card() {
-            Row() {
-                Column() {
+        Card(Modifier.fillMaxWidth(),
+            elevation = 6.dp) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.padding(12.dp)) {
                     Row() {
-                        Text(text = fname + " " + lname,
+                        Text(
+                            text = fname + " " + lname,
                             style = MaterialTheme.typography.body1,
+                            fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colors.onSurface,
-                            modifier = Modifier.padding(bottom = 4.dp))
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
                     }
                     Row() {
-                        Text(text = startDate + "-" + endDate,
+                        Text(
+                            text = startDate + "-" + endDate,
                             style = MaterialTheme.typography.body1,
                             color = MaterialTheme.colors.onSurface,
-                            modifier = Modifier.padding(bottom = 4.dp))
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
 
                     }
                     Row() {
-                        Text(text = "$" + price.toString()+ " (" + type + ")",
+                        Text(
+                            text = "$" + price.toString() + " (" + type + ")",
                             style = MaterialTheme.typography.body1,
                             color = MaterialTheme.colors.onSurface,
-                            modifier = Modifier.padding(bottom = 4.dp))
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
                     }
                 }
-                Row(Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.fillMaxSize(),horizontalAlignment = Alignment.End) {
+                    Row(horizontalArrangement = Arrangement.End) {
                         Icon(
                             imageVector = Icons.Default.Edit,
                             contentDescription = "image",
                             tint = Color.Red, modifier = Modifier
-                                .size(30.dp)
+                                .size(50.dp)
+                                .padding(horizontal = 4.dp)
                                 .clickable(onClick = {
                                     //edit appt
                                 })
                         )
-                        Spacer(modifier = Modifier.height(4.dp))
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "image",
                             tint = Color.Red, modifier = Modifier
-                                .size(30.dp)
+                                .size(50.dp)
+                                .padding(horizontal = 4.dp)
                                 .clickable(onClick = {
                                     //delete appt
                                 })
                         )
-
+                    }
                 }
             }
-
-
-//            Column(modifier = Modifier.fillMaxWidth(),horizontalAlignment = Alignment.CenterHorizontally,
-//                verticalArrangement = Arrangement.Center) {
-//                Row(Modifier.fillMaxWidth()) {
-
-//                }
-
-//            }
         }
     }
+}
 
+@Composable
+fun PastApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Float,type:String) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Card(
+            Modifier.fillMaxWidth(),
+            elevation = 6.dp
+        ) {
+            Row() {
+                Column(Modifier.padding(12.dp)) {
+                    Row() {
+                        Text(
+                            text = fname + " " + lname,
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onSurface,
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
+                    }
+                    Row() {
+                        Text(
+                            text = startDate + "-" + endDate,
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onSurface,
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
 
+                    }
+                    Row() {
+                        Text(
+                            text = "$" + price.toString() + " (" + type + ")",
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onSurface,
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
 
+@Composable
+fun ListDivier(text: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp,bottom = 8.dp)
+            .background(Color.LightGray)
+    ) {
+        Text(modifier = Modifier
+            .padding(4.dp),
+            style = MaterialTheme.typography.body1,
+            text = "Past Services")
+    }
 }
 
 val currentappts = listOf(
+    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
+    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service")
+)
+
+val pastappts = listOf(
+    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
+    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
+    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
+    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
+    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
     TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service")
 )
 
 @Preview
 @Composable
 fun previewAppointments() {
-    AppointmentScreen()
+//    AppointmentScreen()
 //    ApptCard("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service")
 }
