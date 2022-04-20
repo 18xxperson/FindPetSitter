@@ -3,13 +3,19 @@ package com.revature.findpetsitter.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "Sitters")
 data class Sitters(
-    @PrimaryKey(autoGenerate = true) val id: Int=0,
-    @ColumnInfo(name = "firstname") val firstname:String,
+    @SerializedName("id")
+    @PrimaryKey(autoGenerate = true) val id:Int,
+    @SerializedName("firstname")
+    @ColumnInfo(name = "firstname")val firstname:String,
+    @SerializedName("lastname")
     @ColumnInfo(name = "lastname") val lastname:String,
-    @ColumnInfo(name = "rating") val rating:Double=0.0,
-    @ColumnInfo(name="type") val type:String,
+    @SerializedName("type")
+    @ColumnInfo(name = "type")val type:String,
+    @SerializedName("rating")
+    @ColumnInfo(name="rating")val rating:Double
 
     )

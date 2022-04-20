@@ -2,21 +2,19 @@ package com.revature.findpetsitter.dao
 
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.MutableLiveData
+import androidx.room.*
 import com.revature.findpetsitter.data.Sitters
 
 @Dao
 interface sitterDaO {
     @Query("SELECT * FROM Sitters")
-    fun getSitters():List<Sitters>
+    fun getSitters():LiveData<List<Sitters>>
 
-    @Query("SELECT * FROM Sitters WHERE type=:types")
-    fun getspecificSitters(types:String):LiveData<List<Sitters>>
+    @Query("SELECT * FROM Sitters WHERE type = :types")
+    fun getspecificSitters(types:String): LiveData<List<Sitters>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSitter(sitters: Sitters)
 
     @Delete
