@@ -151,6 +151,7 @@ fun SignIn(navController: NavController) {
                                   Toast.makeText(context,
                                   "Signed in successfully",
                                   Toast.LENGTH_SHORT).show()
+                                  navController.navigate(Routes.ChooseService.route)
                               }
                           }
 
