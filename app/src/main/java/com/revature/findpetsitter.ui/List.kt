@@ -20,11 +20,20 @@ import com.revature.findpetsitter.viewmodel.SitterViewModel
 
 @Composable
 fun displayList(navController: NavController,type: String,sitterViewModel: SitterViewModel) {
-      sitterViewModel.sitterlist()
-      var list=sitterViewModel.sitterResultList.value
+      val list=sitterViewModel.sitterResultList.value
+      list.forEach{
+          sitterViewModel.insertSitter(it)
+      }
+    val datalist=sitterViewModel.getsitters().value
+    //  val filterdata=sitterViewModel.fetchtypeofsitter(type)
+     // val filterlist=filterdata.value
         LazyColumn()
         {
-                items(items = list) { sitter ->
+       //     if (filterlist != null) {
+         //       items(items = filterlist.subList(0,filterlist.size)) { sitter ->
+            if (datalist != null) {
+                items(items = datalist.subList(0,datalist.size)){sitter ->
+
                     SitterCard(
                         firstname = sitter.firstname,
                         lastname = sitter.lastname,
@@ -33,6 +42,7 @@ fun displayList(navController: NavController,type: String,sitterViewModel: Sitte
                     )
 
                 }
+            }
 
         }
 

@@ -48,7 +48,7 @@ import com.revature.findpetsitter.viewmodel.SitterViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sitterViewModel=SitterViewModel()
+        val sitterViewModel=ViewModelProvider(this).get(SitterViewModel::class.java)
         setContent {
             FindPetSitterTheme {
                 // A surface container using the 'background' color from the theme

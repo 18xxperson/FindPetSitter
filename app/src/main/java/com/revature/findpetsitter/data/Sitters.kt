@@ -5,11 +5,17 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "Sitters")
 data class Sitters(
-    @SerializedName("id")val id:Int,
-    @SerializedName("firstname")val firstname:String,
-    @SerializedName("lastname")val lastname:String,
-    @SerializedName("type")val type:String,
-    @SerializedName("rating")val rating:Double
+    @SerializedName("id")
+    @PrimaryKey(autoGenerate = true) val id:Int,
+    @SerializedName("firstname")
+    @ColumnInfo(name = "firstname")val firstname:String,
+    @SerializedName("lastname")
+    @ColumnInfo(name = "lastname") val lastname:String,
+    @SerializedName("type")
+    @ColumnInfo(name = "type")val type:String,
+    @SerializedName("rating")
+    @ColumnInfo(name="rating")val rating:Double
 
     )
