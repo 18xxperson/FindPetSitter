@@ -16,11 +16,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
+import androidx.navigation.NavHostController
 import com.revature.findpetsitter.R
+import com.revature.findpetsitter.Routes
 import java.util.*
 
 @Composable
-fun ScheduleService() {
+fun ScheduleService(navController: NavHostController) {
     var startDate by remember {mutableStateOf("")}
     var endDate by remember {mutableStateOf("")}
     val context = LocalContext.current
@@ -123,7 +125,7 @@ fun ScheduleService() {
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    OrderDetails("Shirley", "Williams", "At-Home Service", 45f, 5)
+                    OrderDetails(navController,"Shirley", "Williams", "At-Home Service", 45f, 5)
                 }
             }
         }
@@ -131,7 +133,7 @@ fun ScheduleService() {
 }
 
 @Composable
-fun OrderDetails(firstName:String,lastName:String,type:String,price:Float, numDays:Int) {
+fun OrderDetails(navController:NavHostController,firstName:String,lastName:String,type:String,price:Float, numDays:Int) {
     Column(Modifier.padding(horizontal = 55.dp)) {
         Text(
             modifier = Modifier
@@ -175,27 +177,18 @@ fun OrderDetails(firstName:String,lastName:String,type:String,price:Float, numDa
             textAlign = TextAlign.Left
         )
     }
-
     Spacer(modifier = Modifier.height(30.dp))
     Column(Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
-//            AlertDialog(onDismissRequest = { /*TODO*/ },
-//                confirmButton = {
-//                    TextButton(onClick = { /*TODO*/ }) {
-//                        Text(text = "OK")
-//                    }
-//                },
-//                dismissButton = {
-//                    TextButton(onClick = { /*TODO*/ }) {
-//                        Text(text = "Cancel")
-//                    }
-//                })
+            navController.navigate(Routes.AppointmentScreen.route)
         },
             modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)) {
             Text(text = "Schedule")
         }
     }
+
+
 }
 
 @Composable
@@ -207,5 +200,5 @@ fun AlertDiaglog(/*pass in values to post*/) {
 @Preview
 @Composable
 fun previewSchedule() {
-    ScheduleService()
+//    ScheduleService()
 }

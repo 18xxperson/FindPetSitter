@@ -18,16 +18,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.revature.findpetsitter.BottNavBar
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AppointmentScreen() {
+fun AppointmentScreen(navController: NavHostController) {
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
-            title = { Text("Scheduled Services") })
-    }) {
+            title = {Text("Lawyer Search")})
+    },
+        bottomBar = {
+            BottNavBar(navController)
+        }) {
         Column(Modifier.fillMaxSize()) {
             LazyColumn(
                 modifier = Modifier
@@ -220,6 +226,6 @@ val pastappts = listOf(
 @Preview
 @Composable
 fun previewAppointments() {
-    AppointmentScreen()
+//    AppointmentScreen()
 //    ApptCard("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service")
 }
