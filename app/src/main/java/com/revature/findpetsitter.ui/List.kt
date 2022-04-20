@@ -15,16 +15,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.data.Sitters
-import com.revature.findpetsitter.data.sitterlist
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 
 
 @Composable
-fun displayList(navController: NavController,type: String) {
-
+fun displayList(navController: NavController,type: String,sitterViewModel: SitterViewModel) {
+      sitterViewModel.sitterlist()
+      var list=sitterViewModel.sitterResultList.value
         LazyColumn()
         {
-                items(items = sitterlist) { sitter ->
+                items(items = list) { sitter ->
                     SitterCard(
                         firstname = sitter.firstname,
                         lastname = sitter.lastname,

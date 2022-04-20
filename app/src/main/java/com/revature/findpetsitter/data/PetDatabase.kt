@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.revature.findpetsitter.dao.sitterDaO
 
-@Database(entities = [Sitters::class],version = 1,exportSchema = false)
+/*@Database(entities = [],version = 1,exportSchema = false)
 abstract class PetDatabase :RoomDatabase() {
     abstract fun sitterdao():sitterDaO
     companion object {
@@ -33,3 +33,4 @@ abstract class PetDatabase :RoomDatabase() {
         }
     }
 }
+*/
