@@ -24,16 +24,16 @@ sealed class Routes(val route: String) {
     object CreateAccount : Routes("createaccount")
     object ListView: Routes("List")
     object AddPet: Routes("Addpet")
-    object ProfileDetails: Routes("ProfileDetails")
+    object ProfileDetails: Routes("Profile Details")
     object ChooseService: Routes("Choose Service")
     object Schedule: Routes("Schedule")
-    object Appointments: Routes("Appointments")
+    object AppointmentScreen: Routes("Appointments")
 }
 
 val Screens= listOf(
     Routes.ChooseService,
     Routes.AddPet,
-    Routes.Appointments
+    Routes.AppointmentScreen
 )
 
 @Composable

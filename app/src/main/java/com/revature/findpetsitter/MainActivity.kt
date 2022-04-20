@@ -41,13 +41,10 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.room.Room
 import com.revature.findpetsitter.data.PetDatabase
-import com.revature.findpetsitter.ui.Addpet
-import com.revature.findpetsitter.ui.Screen_ProfileDetails
-import com.revature.findpetsitter.ui.chooseService
-import com.revature.findpetsitter.ui.displayList
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 import com.revature.findpetsitter.Routes
+import com.revature.findpetsitter.ui.*
 
 
 class MainActivity : ComponentActivity() {
@@ -97,6 +94,15 @@ fun Navigation() {
         }
         composable(Routes.ChooseService.route){
             chooseService(navHostController = navController)
+        }
+        composable(Routes.AppointmentScreen.route) {
+            AppointmentScreen(navController = navController)
+        }
+        composable(Routes.ProfileDetails.route) {
+            Screen_ProfileDetails(navHostController = navController)
+        }
+        composable(Routes.Schedule.route) {
+            ScheduleService(navController = navController)
         }
         composable(Routes.ListView.route+"/{type}",
             arguments = listOf(

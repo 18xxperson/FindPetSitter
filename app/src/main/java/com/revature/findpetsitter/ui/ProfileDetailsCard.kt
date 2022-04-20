@@ -22,14 +22,16 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.revature.findpetsitter.R
+import com.revature.findpetsitter.Routes
 import java.util.*
 
 
 @Composable
-fun ProfileDetailsCard(firstName:String, lastName:String, type:String, aboutMe:String, price:Float, image:String, rating:Float,navController: NavController) {
+fun ProfileDetailsCard(navHostController: NavHostController, firstName:String, lastName:String, type:String, aboutMe:String, price:Float, image:String, rating:Float, navController: NavController) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -126,7 +128,8 @@ fun ProfileDetailsCard(firstName:String, lastName:String, type:String, aboutMe:S
                         }) {
                             Text(text = "See Availability")
                         }
-                        Button(onClick = { /* Schedule Service */ },
+                        Button(
+                            onClick = { navController.navigate(Routes.Schedule.route) },
                             modifier = Modifier.padding(horizontal = 4.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff02a60f))) {
                             Icon(
