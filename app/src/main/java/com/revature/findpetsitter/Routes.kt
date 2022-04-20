@@ -16,19 +16,24 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
 sealed class Routes(val route: String) {
-    object SplashScreen : Routes ("SplashScreen")
-    object MainScreen : Routes ("MainScreen")
-    object SignIn : Routes("SignIn")
-    object CreateAccount : Routes("CreateAccount")
+
+
+    object SplashScreen : Routes ("splashscreen")
+    object MainScreen : Routes ("mainscreen")
+    object SignIn : Routes("signin")
+    object CreateAccount : Routes("createaccount")
     object ListView: Routes("List")
     object AddPet: Routes("Addpet")
     object ProfileDetails: Routes("ProfileDetails")
     object ChooseService: Routes("Choose Service")
+    object Schedule: Routes("Schedule")
+    object Appointments: Routes("Appointments")
 }
 
 val Screens= listOf(
     Routes.ChooseService,
-    Routes.AddPet
+    Routes.AddPet,
+    Routes.Appointments
 )
 
 @Composable
@@ -69,4 +74,5 @@ fun BottNavBar(navController:NavHostController) {
         }
 
     }
+
 }

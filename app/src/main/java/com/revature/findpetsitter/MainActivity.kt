@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
@@ -34,6 +35,8 @@ import androidx.navigation.compose.rememberNavController
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import kotlinx.coroutines.delay
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.room.Room
@@ -43,6 +46,7 @@ import com.revature.findpetsitter.ui.chooseService
 import com.revature.findpetsitter.ui.displayList
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
+import com.revature.findpetsitter.Routes
 
 
 class MainActivity : ComponentActivity() {
@@ -71,7 +75,7 @@ fun Navigation(sitterViewModel: SitterViewModel) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Routes.SplashScreen.route
+        startDestination = Routes.SplashScreen.route,
     ) {
         composable(Routes.SplashScreen.route) {
             SplashScreen(navController = navController)
@@ -80,6 +84,7 @@ fun Navigation(sitterViewModel: SitterViewModel) {
             MainScreen(navController = navController)
         }
         composable(Routes.SignIn.route) {
+
             SignIn(navController = navController)
         }
         composable(Routes.CreateAccount.route) {
@@ -108,7 +113,7 @@ fun Navigation(sitterViewModel: SitterViewModel) {
 }
 
 @Composable
-fun SplashScreen(navController: NavHostController) {
+fun SplashScreen(navController: NavController) {
     val scale = remember {
         Animatable(0f)
     }
@@ -138,21 +143,21 @@ fun SplashScreen(navController: NavHostController) {
 }
 
 @Composable
-fun MainScreen( navController: NavHostController ) {
+fun MainScreen(navController: NavController) {
 
     val context = LocalContext.current
 
     Column {
 
         Box(modifier = Modifier.fillMaxSize()) {
-            /*    Image(
-                    painter = painterResource(id = R.drawable.backgroundimage),
+                Image(
+                    painter = painterResource(id = R.drawable.project3mainscreen),
                     contentDescription = "",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxHeight()
-                ) */
-            Button(onClick = { navController.navigate(Routes.CreateAccount.route)
-            }, modifier = Modifier
+                )
+
+                Button(onClick = {navController.navigate(Routes.CreateAccount.route) }, modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .padding(20.dp),
