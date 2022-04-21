@@ -8,33 +8,32 @@ import androidx.lifecycle.*
 import com.revature.findpetsitter.data.Sitters
 import com.revature.findpetsitter.data.SittersList
 import com.revature.findpetsitter.repository.RetroFitHelper
-import com.revature.findpetsitter.repository.SitterRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SitterViewModel(appObj:Application): AndroidViewModel(appObj) {
-    private val sitterRepository:SitterRepository=SitterRepository(appObj)
+   // private val sitterRepository:SitterRepository=SitterRepository(appObj)
     private val fetchSittersLiveData= MutableLiveData<SittersList>()
     var sitterResultList: MutableState<List<Sitters>> = mutableStateOf(listOf())
     init {
         sitterlist()
     }
-    fun insertSitter(sitters: Sitters)
-    {
-        viewModelScope.launch {
-            sitterRepository.insertsitter(sitters)
-        }
-    }
+  //  fun insertSitter(sitters: Sitters)
+   // {
+    //    viewModelScope.launch {
+     //       sitterRepository.insertsitter(sitters)
+      //  }
+   // }
 
-    fun fetchtypeofsitter(type:String):LiveData<List<Sitters>>
-    {
-            return sitterRepository.fetchsittertype(type)
-    }
+  //  fun fetchtypeofsitter(type:String):LiveData<List<Sitters>>
+  //  {
+  //          return sitterRepository.fetchsittertype(type)
+  //  }
 
-    fun getsitters():LiveData<List<Sitters>>
-    {
-        return sitterRepository.sitters()
-    }
+  //  fun getsitters():LiveData<List<Sitters>>
+  //  {
+  //      return sitterRepository.sitters()
+  //  }
 
     fun sitterlist(){
         viewModelScope.launch(Dispatchers.IO){

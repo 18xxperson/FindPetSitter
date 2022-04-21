@@ -27,8 +27,17 @@ fun chooseService(navHostController: NavHostController)
                 Text(text = "HouseSitting")
             }
             Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = { navHostController.navigate(Routes.ListView.route+"/KettleService") }) {
+            Button(onClick = { navHostController.navigate(Routes.ListView.route+"/Kettle Service") }) {
                 Text(text = "Kettle Service")
+            }
+            Spacer(modifier = Modifier.height(30.dp))
+            Button(onClick = { navHostController.navigate(Routes.ListView.route+"/Drop Off") }) {
+                Text(text = "Drop Off")
+            }
+            Spacer(modifier = Modifier.height(30.dp))
+            Button(onClick = {
+                navHostController.navigate(Routes.ListView.route+"/Pet Daycare") }) {
+                Text(text = "Pet Daycare")
             }
         }
     }

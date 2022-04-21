@@ -104,6 +104,38 @@ fun Navigation(sitterViewModel: SitterViewModel) {
         }
         composable(Routes.ProfileDetails.route) {
             Screen_ProfileDetails(navHostController = navController,viewModel = ProfileDetailsViewModel())
+        composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}",
+        arguments = listOf(
+            navArgument("firstname")
+            {
+                type= NavType.StringType
+            },
+            navArgument("lastname")
+            {
+                type= NavType.StringType
+            },
+            navArgument("type")
+            {
+                type= NavType.StringType
+            },
+            navArgument("rating")
+            {
+                type= NavType.FloatType
+            }
+        )) {
+            val firstname=it.arguments?.getString("firstname")
+            val lastname=it.arguments?.getString("lastname")
+            val type=it.arguments?.getString("type")
+            val rating=it.arguments?.getFloat("rating")
+            if (firstname != null) {
+                if (lastname != null) {
+                    if (type != null) {
+                        if (rating != null) {
+                            Screen_ProfileDetails(navHostController = navController,firstname,lastname,type,rating)
+                        }
+                    }
+                }
+            }
         }
         composable(Routes.Schedule.route) {
             ScheduleService(navController = navController)
