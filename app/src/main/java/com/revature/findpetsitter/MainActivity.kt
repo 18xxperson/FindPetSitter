@@ -45,13 +45,13 @@ import com.revature.findpetsitter.ui.Addpet
 import com.revature.findpetsitter.ui.Screen_ProfileDetails
 import com.revature.findpetsitter.ui.chooseService
 import com.revature.findpetsitter.ui.displayList
-import com.revature.findpetsitter.data.PetDatabase
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.viewmodel.UserViewModel
 
 import com.revature.findpetsitter.ui.*
+import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
 
 
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
 
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-
+        val appointmentViewModel = ViewModelProvider(this).get(AppointmentsViewModel::class.java)
         val sitterViewModel=ViewModelProvider(this).get(SitterViewModel::class.java)
 
         setContent {
@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    Navigation(userViewModel, sitterViewModel)
+                    Navigation(userViewModel, sitterViewModel, appointmentViewModel)
 
                     
                 }
@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("ComposableDestinationInComposeScope")
 @Composable
-fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel) {
+fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel, appointmentViewModel:AppointmentsViewModel) {
 
     val navController = rememberNavController()
     NavHost(
@@ -112,7 +112,7 @@ fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel) {
             chooseService(navHostController = navController)
         }
         composable(Routes.AppointmentScreen.route) {
-            AppointmentScreen(navController = navController)
+            AppointmentScreen(navController = navController, appointmentViewModel)
         }
         composable(Routes.ProfileDetails.route) {
             Screen_ProfileDetails(navHostController = navController,viewModel = ProfileDetailsViewModel())

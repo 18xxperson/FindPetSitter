@@ -21,12 +21,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.revature.findpetsitter.BottNavBar
-import kotlinx.coroutines.launch
+import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
+import com.revature.findpetsitter.data.Appointment
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AppointmentScreen(navController: NavHostController) {
+fun AppointmentScreen(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
+    val id:Int=0
+    var apptList = appointmentViewModel.fetchAppointmentsById(id).observeAsState(listOf())
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
             title = {Text("Lawyer Search")})

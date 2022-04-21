@@ -1,13 +1,15 @@
 package com.revature.findpetsitter.data
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "appointments")
-data class Appointments(
+@Entity(tableName = "appointment")
+data class Appointment(
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     val id:Int=0,        //auto-generated id
 
     @ColumnInfo(name="user_id")
