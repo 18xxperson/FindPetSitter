@@ -1,5 +1,6 @@
 package com.revature.findpetsitter.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
@@ -8,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -15,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.revature.findpetsitter.BottNavBar
+import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.Screens
 
 
@@ -22,6 +25,7 @@ import com.revature.findpetsitter.Screens
 @Composable
 fun Addpet(navController: NavHostController)
 {
+    var context= LocalContext.current
     Scaffold(bottomBar = {
         BottNavBar(navController = navController)
     }) {
@@ -58,7 +62,15 @@ fun Addpet(navController: NavHostController)
             Text(text = "Add image")
         }
         Spacer(modifier = Modifier.height(100.dp))
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = {
+            if(description!=""&&type!=""&&name!="") {
+                Toast.makeText(context, "Adding Pet Successful", Toast.LENGTH_LONG).show()
+                navController.navigate(Routes.ChooseService.route)
+            }
+            else{
+                Toast.makeText(context, "Please add to every field you have left empty", Toast.LENGTH_LONG).show()
+            }
+        }) {
             Text(text = "Add pet")
         }
     }

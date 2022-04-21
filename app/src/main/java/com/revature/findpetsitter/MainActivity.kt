@@ -36,7 +36,6 @@ import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import kotlinx.coroutines.delay
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.room.Room
@@ -44,7 +43,6 @@ import com.revature.findpetsitter.ui.Addpet
 import com.revature.findpetsitter.ui.Screen_ProfileDetails
 import com.revature.findpetsitter.ui.chooseService
 import com.revature.findpetsitter.ui.displayList
-import com.revature.findpetsitter.data.PetDatabase
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 import com.revature.findpetsitter.Routes
@@ -101,8 +99,38 @@ fun Navigation(sitterViewModel: SitterViewModel) {
         composable(Routes.AppointmentScreen.route) {
             AppointmentScreen(navController = navController)
         }
-        composable(Routes.ProfileDetails.route) {
-            Screen_ProfileDetails(navHostController = navController)
+        composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}",
+        arguments = listOf(
+            navArgument("firstname")
+            {
+                type= NavType.StringType
+            },
+            navArgument("lastname")
+            {
+                type= NavType.StringType
+            },
+            navArgument("type")
+            {
+                type= NavType.StringType
+            },
+            navArgument("rating")
+            {
+                type= NavType.FloatType
+            }
+        )) {
+            val firstname=it.arguments?.getString("firstname")
+            val lastname=it.arguments?.getString("lastname")
+            val type=it.arguments?.getString("type")
+            val rating=it.arguments?.getFloat("rating")
+            if (firstname != null) {
+                if (lastname != null) {
+                    if (type != null) {
+                        if (rating != null) {
+                            Screen_ProfileDetails(navHostController = navController,firstname,lastname,type,rating)
+                        }
+                    }
+                }
+            }
         }
         composable(Routes.Schedule.route) {
             ScheduleService(navController = navController)

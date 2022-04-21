@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Screen_ProfileDetails(navHostController: NavHostController) {
+fun Screen_ProfileDetails(navHostController: NavHostController,firstname:String,lastname:String,type:String,rating:Float){
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
@@ -33,15 +33,15 @@ fun Screen_ProfileDetails(navHostController: NavHostController) {
                 ) {
                     ProfileDetailsCard(
                         navHostController,
-                        firstName = "James",
-                        lastName = "Smith",
-                        type = "Kennel Service",
+                        firstName = firstname,
+                        lastName = lastname,
+                        type = type,
                         aboutMe = "This is the profile bio , consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
                                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
                                 "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                         price = 75f,
                         image = "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
-                        rating = 4.5f,
+                        rating = rating,
                         navHostController
                     )
                 }
