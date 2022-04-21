@@ -49,6 +49,7 @@ import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.ui.*
+import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -102,7 +103,7 @@ fun Navigation(sitterViewModel: SitterViewModel) {
             AppointmentScreen(navController = navController)
         }
         composable(Routes.ProfileDetails.route) {
-            Screen_ProfileDetails(navHostController = navController)
+            Screen_ProfileDetails(navHostController = navController,viewModel = ProfileDetailsViewModel())
         }
         composable(Routes.Schedule.route) {
             ScheduleService(navController = navController)

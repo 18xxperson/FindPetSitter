@@ -13,10 +13,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Screen_ProfileDetails(navHostController: NavHostController) {
+fun Screen_ProfileDetails(navHostController: NavHostController, viewModel:ProfileDetailsViewModel) {
+    viewModel.reviewsList()
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
@@ -41,12 +43,11 @@ fun Screen_ProfileDetails(navHostController: NavHostController) {
                                 "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                         price = 75f,
                         image = "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
-                        rating = 4.5f,
-                        navHostController
+                        rating = 4.5f
                     )
                 }
             }
-            items(testReviewList) { review ->
+            items(viewModel.reviewsResultList.value) { review ->
                 Divider(color = Color.DarkGray)
                 ProfileReview(fname = review.firstName, lname = review.lastName, rating = review.rating,
                     headline = review.headline, body = review.body, date = review.date)
