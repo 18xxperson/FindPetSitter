@@ -57,7 +57,7 @@ fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navCon
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()
-            .clickable { navController.navigate(Routes.ProfileDetails.route) }
+            .clickable { navController.navigate(Routes.ProfileDetails.route+"/$firstname/$lastname/$type/$rating") }
             .wrapContentHeight(),
         shape = MaterialTheme.shapes.medium,
         elevation = 5.dp,

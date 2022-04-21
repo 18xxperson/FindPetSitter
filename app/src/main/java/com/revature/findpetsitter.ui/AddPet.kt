@@ -63,8 +63,13 @@ fun Addpet(navController: NavHostController)
         }
         Spacer(modifier = Modifier.height(100.dp))
         Button(onClick = {
-            Toast.makeText(context,"Adding Pet Successful",Toast.LENGTH_LONG).show()
-            navController.navigate(Routes.ChooseService.route)
+            if(description!=""&&type!=""&&name!="") {
+                Toast.makeText(context, "Adding Pet Successful", Toast.LENGTH_LONG).show()
+                navController.navigate(Routes.ChooseService.route)
+            }
+            else{
+                Toast.makeText(context, "Please add to every field you have left empty", Toast.LENGTH_LONG).show()
+            }
         }) {
             Text(text = "Add pet")
         }
