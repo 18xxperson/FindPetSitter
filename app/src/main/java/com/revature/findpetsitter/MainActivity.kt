@@ -80,7 +80,11 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
+<<<<<<< Updated upstream
 fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel) {
+=======
+fun Navigation(userViewModel: UserViewModel) {
+>>>>>>> Stashed changes
 
     val navController = rememberNavController()
     NavHost(
