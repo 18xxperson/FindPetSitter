@@ -1,6 +1,5 @@
 package com.revature.findpetsitter
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.OvershootInterpolator
@@ -83,7 +82,6 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@SuppressLint("ComposableDestinationInComposeScope")
 @Composable
 fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel, appointmentViewModel:AppointmentsViewModel) {
 
@@ -114,8 +112,6 @@ fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel, a
         composable(Routes.AppointmentScreen.route) {
             AppointmentScreen(navController = navController, appointmentViewModel)
         }
-        composable(Routes.ProfileDetails.route) {
-            Screen_ProfileDetails(navHostController = navController,viewModel = ProfileDetailsViewModel())
         composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}",
         arguments = listOf(
             navArgument("firstname")
