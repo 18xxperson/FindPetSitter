@@ -49,14 +49,22 @@ import com.revature.findpetsitter.data.PetDatabase
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 import com.revature.findpetsitter.Routes
+import com.revature.findpetsitter.viewmodel.UserViewModel
+
 import com.revature.findpetsitter.ui.*
 import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
+
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+
         val sitterViewModel=ViewModelProvider(this).get(SitterViewModel::class.java)
+
         setContent {
             FindPetSitterTheme {
                 // A surface container using the 'background' color from the theme
@@ -64,8 +72,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Navigation(sitterViewModel)
 
+                    Navigation(userViewModel, sitterViewModel)
+
+                    
                 }
             }
         }
@@ -75,7 +85,7 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("ComposableDestinationInComposeScope")
 @Composable
-fun Navigation(sitterViewModel: SitterViewModel) {
+fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel) {
 
     val navController = rememberNavController()
     NavHost(
@@ -93,7 +103,7 @@ fun Navigation(sitterViewModel: SitterViewModel) {
             SignIn(navController = navController)
         }
         composable(Routes.CreateAccount.route) {
-            CreateAccount(navController = navController)
+            CreateAccount(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.AddPet.route){
             Addpet(navController)

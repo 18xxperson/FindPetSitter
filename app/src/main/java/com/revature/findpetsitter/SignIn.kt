@@ -38,6 +38,7 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -46,12 +47,16 @@ import androidx.navigation.compose.rememberNavController
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import kotlinx.coroutines.delay
 import com.revature.findpetsitter.Routes
+import com.revature.findpetsitter.viewmodel.UserViewModel
 
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 
 fun SignIn(navController: NavController) {
+
+//    val userViewModel = ViewModelProvider().get(UserViewModel::class.java)
+//    val userList = userViewModel.readAllData().observeAsState(arrayListOf())
 
     Box(modifier = Modifier.fillMaxSize()) {
 
