@@ -39,7 +39,8 @@ fun displayList(navController: NavController,type: String,sitterViewModel: Sitte
                         firstname = sitter.firstname,
                         lastname = sitter.lastname,
                         rating = sitter.rating,
-                        type, navController = navController
+                        type, navController = navController,
+                        price = sitter.price
                     )
 
               //  }
@@ -51,7 +52,7 @@ fun displayList(navController: NavController,type: String,sitterViewModel: Sitte
 
 
 @Composable
-fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navController: NavController)
+fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navController: NavController,price:Double)
 {
     Card(
         modifier = Modifier
@@ -67,6 +68,7 @@ fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navCon
            Text(text = "$firstname $lastname")
            Text("rating: $rating")
            Text(text = type)
+           Text(text = "price: $$price per hour")
        }
     }
 }

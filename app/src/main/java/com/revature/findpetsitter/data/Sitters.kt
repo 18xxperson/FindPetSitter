@@ -16,6 +16,7 @@ data class Sitters(
     @SerializedName("type")
     @ColumnInfo(name = "type")val type:String,
     @SerializedName("rating")
-    @ColumnInfo(name="rating")val rating:Double
+    @ColumnInfo(name="rating")val rating:Double,
+    @SerializedName("price") val price:Double
 
     )
