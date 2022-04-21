@@ -25,12 +25,17 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.revature.findpetsitter.data.User
 import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
+import com.revature.findpetsitter.viewmodel.UserViewModel
 
 @Composable
-fun CreateAccount(navController: NavController) {
+fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
+
     val context = LocalContext.current
     val name = remember{mutableStateOf(TextFieldValue())}
     val email = remember{mutableStateOf(TextFieldValue())}
@@ -193,6 +198,13 @@ fun CreateAccount(navController: NavController) {
                             context, "Account Created",
                             Toast.LENGTH_SHORT
                         ).show()
+/*                        userViewModel.insertUser(
+                            User(
+                                email = email.value,
+                                name = name.value,
+                                password = password.value
+                            )
+                        ) */
                       navController.navigate(Routes.SignIn.route)
                     }
                 }
