@@ -12,10 +12,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Screen_ProfileDetails(firstname:String,lastname:String,type:String,navController: NavController) {
+fun Screen_ProfileDetails(navHostController: NavHostController,firstname:String,lastname:String,type:String,rating:Float){
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
@@ -31,6 +32,7 @@ fun Screen_ProfileDetails(firstname:String,lastname:String,type:String,navContro
                     .fillMaxWidth()
                 ) {
                     ProfileDetailsCard(
+                        navHostController,
                         firstName = firstname,
                         lastName = lastname,
                         type = type,
@@ -39,8 +41,8 @@ fun Screen_ProfileDetails(firstname:String,lastname:String,type:String,navContro
                                 "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                         price = 75f,
                         image = "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
-                        rating = 4.5f,
-                        navController = navController
+                        rating = rating,
+                        navHostController
                     )
                 }
             }

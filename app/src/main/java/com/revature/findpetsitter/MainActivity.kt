@@ -36,11 +36,9 @@ import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import kotlinx.coroutines.delay
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.room.Room
-import com.revature.findpetsitter.data.PetDatabase
 import com.revature.findpetsitter.ui.Addpet
 import com.revature.findpetsitter.ui.Screen_ProfileDetails
 import com.revature.findpetsitter.ui.chooseService
@@ -50,6 +48,9 @@ import com.revature.findpetsitter.viewmodel.SitterViewModel
 import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.viewmodel.UserViewModel
 
+import com.revature.findpetsitter.ui.*
+
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,16 +58,20 @@ class MainActivity : ComponentActivity() {
 
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+
+        val sitterViewModel=ViewModelProvider(this).get(SitterViewModel::class.java)
+
         setContent {
-            val sitterViewModel=ViewModelProvider(this).get(SitterViewModel::class.java)
             FindPetSitterTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Navigation(userViewModel)
 
+                    Navigation(userViewModel, sitterViewModel)
+
+                    
                 }
             }
         }
@@ -75,9 +80,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Navigation(userViewModel: UserViewModel) {
-
-//    val userViewModel = userViewModel
+fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel) {
 
     val navController = rememberNavController()
     NavHost(
@@ -103,6 +106,45 @@ fun Navigation(userViewModel: UserViewModel) {
         composable(Routes.ChooseService.route){
             chooseService(navHostController = navController)
         }
+        composable(Routes.AppointmentScreen.route) {
+            AppointmentScreen(navController = navController)
+        }
+        composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}",
+        arguments = listOf(
+            navArgument("firstname")
+            {
+                type= NavType.StringType
+            },
+            navArgument("lastname")
+            {
+                type= NavType.StringType
+            },
+            navArgument("type")
+            {
+                type= NavType.StringType
+            },
+            navArgument("rating")
+            {
+                type= NavType.FloatType
+            }
+        )) {
+            val firstname=it.arguments?.getString("firstname")
+            val lastname=it.arguments?.getString("lastname")
+            val type=it.arguments?.getString("type")
+            val rating=it.arguments?.getFloat("rating")
+            if (firstname != null) {
+                if (lastname != null) {
+                    if (type != null) {
+                        if (rating != null) {
+                            Screen_ProfileDetails(navHostController = navController,firstname,lastname,type,rating)
+                        }
+                    }
+                }
+            }
+        }
+        composable(Routes.Schedule.route) {
+            ScheduleService(navController = navController)
+        }
         composable(Routes.ListView.route+"/{type}",
             arguments = listOf(
                 navArgument("type")
@@ -113,7 +155,7 @@ fun Navigation(userViewModel: UserViewModel) {
         {
             val type=it.arguments?.getString("type")
             if (type != null) {
-                displayList(type = type, navController = navController)
+                displayList(type = type, navController = navController,sitterViewModel = sitterViewModel)
             }
         }
     }
