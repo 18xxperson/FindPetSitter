@@ -1,6 +1,5 @@
 package com.revature.findpetsitter
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
@@ -26,9 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -38,21 +35,28 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import androidx.room.Room
 import com.revature.findpetsitter.ui.Addpet
 import com.revature.findpetsitter.ui.Screen_ProfileDetails
 import com.revature.findpetsitter.ui.chooseService
 import com.revature.findpetsitter.ui.displayList
-import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.SitterViewModel
-import com.revature.findpetsitter.Routes
+import com.revature.findpetsitter.viewmodel.UserViewModel
+
 import com.revature.findpetsitter.ui.*
+import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
+import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
+
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        val profileDetailsViewModel = ViewModelProvider(this).get(ProfileDetailsViewModel::class.java)
+        val appointmentViewModel = ViewModelProvider(this).get(AppointmentsViewModel::class.java)
         val sitterViewModel=ViewModelProvider(this).get(SitterViewModel::class.java)
+
         setContent {
             FindPetSitterTheme {
                 // A surface container using the 'background' color from the theme
@@ -60,8 +64,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Navigation(sitterViewModel)
 
+                    Navigation(userViewModel, sitterViewModel, appointmentViewModel, profileDetailsViewModel)
+
+                    
                 }
             }
         }
@@ -70,7 +76,12 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Navigation(sitterViewModel: SitterViewModel) {
+fun Navigation(
+    userViewModel: UserViewModel,
+    sitterViewModel: SitterViewModel,
+    appointmentViewModel: AppointmentsViewModel,
+    profileDetailsViewModel: ProfileDetailsViewModel
+) {
 
     val navController = rememberNavController()
     NavHost(
@@ -88,7 +99,7 @@ fun Navigation(sitterViewModel: SitterViewModel) {
             SignIn(navController = navController)
         }
         composable(Routes.CreateAccount.route) {
-            CreateAccount(navController = navController)
+            CreateAccount(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.AddPet.route){
             Addpet(navController)
@@ -97,9 +108,12 @@ fun Navigation(sitterViewModel: SitterViewModel) {
             chooseService(navHostController = navController)
         }
         composable(Routes.AppointmentScreen.route) {
-            AppointmentScreen(navController = navController)
+            AppointmentScreen(navController = navController, appointmentViewModel)
         }
-        composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}/{price}",
+//        composable(Routes.ProfileDetails.route) {
+//            Screen_ProfileDetails(navHostController = navController, viewModel = ProfileDetailsViewModel())
+//        }
+        composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}",
         arguments = listOf(
             navArgument("firstname")
             {
@@ -116,24 +130,17 @@ fun Navigation(sitterViewModel: SitterViewModel) {
             navArgument("rating")
             {
                 type= NavType.FloatType
-            },
-            navArgument("price")
-            {
-                type= NavType.FloatType
             }
         )) {
             val firstname=it.arguments?.getString("firstname")
             val lastname=it.arguments?.getString("lastname")
             val type=it.arguments?.getString("type")
             val rating=it.arguments?.getFloat("rating")
-            val price=it.arguments?.getFloat("price")
             if (firstname != null) {
                 if (lastname != null) {
                     if (type != null) {
                         if (rating != null) {
-                            if (price != null) {
-                                Screen_ProfileDetails(navHostController = navController,firstname,lastname,type,rating,price)
-                            }
+                            Screen_ProfileDetails(navHostController = navController,viewModel = profileDetailsViewModel)
                         }
                     }
                 }
@@ -204,9 +211,9 @@ fun MainScreen(navController: NavController) {
                 )
 
                 Button(onClick = {navController.navigate(Routes.CreateAccount.route) }, modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(20.dp),
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .padding(20.dp),
                 shape = RoundedCornerShape(50.dp))
             {
                 Text("Create Account", fontWeight = FontWeight.ExtraBold)

@@ -1,9 +1,6 @@
 package com.revature.findpetsitter
 
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -26,11 +23,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
+import com.revature.findpetsitter.data.User
+import com.revature.findpetsitter.viewmodel.UserViewModel
 
 @Composable
-fun CreateAccount(navController: NavController) {
+fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
+
     val context = LocalContext.current
     val name = remember{mutableStateOf(TextFieldValue())}
     val email = remember{mutableStateOf(TextFieldValue())}
@@ -193,6 +191,13 @@ fun CreateAccount(navController: NavController) {
                             context, "Account Created",
                             Toast.LENGTH_SHORT
                         ).show()
+                        userViewModel.insertUser(
+                            User(
+                                email = email.value,
+                                name = name.value,
+                                password = password.value
+                            )
+                        )
                       navController.navigate(Routes.SignIn.route)
                     }
                 }
