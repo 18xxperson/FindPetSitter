@@ -83,6 +83,7 @@ fun Navigation(
     profileDetailsViewModel: ProfileDetailsViewModel
 ) {
 
+
     val navController = rememberNavController()
     NavHost(
         navController = navController,
@@ -96,7 +97,7 @@ fun Navigation(
         }
         composable(Routes.SignIn.route) {
 
-            SignIn(navController = navController)
+            SignIn(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.CreateAccount.route) {
             CreateAccount(navController = navController, userViewModel = userViewModel)
