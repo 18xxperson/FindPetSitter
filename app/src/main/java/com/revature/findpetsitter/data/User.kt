@@ -6,7 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "accounts")
+@Entity(tableName = "User_list")
 data class User(
 
     @PrimaryKey(autoGenerate = true)
@@ -14,13 +14,13 @@ data class User(
     var id: Int = 0,
 
     @ColumnInfo(name = "email")
-    var email: TextFieldValue,
+    var email: String,
 
     @ColumnInfo(name = "name")
-    var name: TextFieldValue,
+    var name: String,
 
     @ColumnInfo(name = "password")
-    var password: TextFieldValue,
+    var password: String,
 
     @ColumnInfo(name = "pets")
     var pets: Int = 0

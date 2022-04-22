@@ -80,11 +80,8 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-<<<<<<< Updated upstream
 fun Navigation(userViewModel: UserViewModel, sitterViewModel: SitterViewModel) {
-=======
-fun Navigation(userViewModel: UserViewModel) {
->>>>>>> Stashed changes
+
 
     val navController = rememberNavController()
     NavHost(
@@ -99,7 +96,7 @@ fun Navigation(userViewModel: UserViewModel) {
         }
         composable(Routes.SignIn.route) {
 
-            SignIn(navController = navController)
+            SignIn(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.CreateAccount.route) {
             CreateAccount(navController = navController, userViewModel = userViewModel)

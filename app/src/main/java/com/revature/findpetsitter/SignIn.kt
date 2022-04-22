@@ -17,10 +17,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -40,23 +37,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
-import kotlinx.coroutines.delay
-import com.revature.findpetsitter.Routes
+import com.revature.findpetsitter.datastore.StoreUserId
 import com.revature.findpetsitter.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.livedata.observeAsState
 
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 
-fun SignIn(navController: NavController) {
+fun SignIn(navController: NavController, userViewModel: UserViewModel) {
 
-//    val userViewModel = ViewModelProvider().get(UserViewModel::class.java)
-//    val userList = userViewModel.readAllData().observeAsState(arrayListOf())
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val dataStore = StoreUserId(context)
+    val userList = userViewModel.readAllData().observeAsState(arrayListOf())
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -68,7 +63,6 @@ fun SignIn(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val context = LocalContext.current
         val keyboardController = LocalSoftwareKeyboardController.current
         val email = remember { mutableStateOf(TextFieldValue()) }
         val emailErrorState = remember { mutableStateOf(false) }
@@ -156,12 +150,14 @@ fun SignIn(navController: NavController) {
                                   Toast.makeText(context,
                                   "Signed in successfully",
                                   Toast.LENGTH_SHORT).show()
-//                                  navController.navigate(Routes.AddPet.route)
+
                               }
 
                           }
 
-
+ //                           scope.launch {
+ //                               dataStore.saveId()
+ //                           }
 
                 },
                 shape = RoundedCornerShape(50.dp),

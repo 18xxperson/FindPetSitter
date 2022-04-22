@@ -30,9 +30,9 @@ import com.revature.findpetsitter.viewmodel.UserViewModel
 fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
 
     val context = LocalContext.current
-    val name = remember{mutableStateOf(TextFieldValue())}
-    val email = remember{mutableStateOf(TextFieldValue())}
-    val password = remember{mutableStateOf(TextFieldValue())}
+    val name = remember{mutableStateOf("")}
+    val email = remember{mutableStateOf("")}
+    val password = remember{mutableStateOf("")}
     val confirmPassword = remember{mutableStateOf(TextFieldValue())}
 
     val nameErrorState = remember{mutableStateOf(false)}
@@ -158,7 +158,7 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
             val msg = if(confirmPassword.value.text.isEmpty()) {
                 "Required"
             }
-            else if (confirmPassword.value.text != password.value.text) {
+            else if (confirmPassword.value.text != password.value) {
                 "Passwords don't match"
             }
             else {
@@ -171,19 +171,19 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
         Button(
             onClick = {
                 when {
-                    name.value.text.isEmpty() -> {
+                    name.value.isEmpty() -> {
                         nameErrorState.value = true
                     }
-                    email.value.text.isEmpty() -> {
+                    email.value.isEmpty() -> {
                         emailErrorState.value = true
                     }
-                    password.value.text.isEmpty() -> {
+                    password.value.isEmpty() -> {
                         passwordErrorState.value = true
                     }
                     confirmPassword.value.text.isEmpty() -> {
                         confirmPasswordErrorState.value = true
                     }
-                    confirmPassword.value.text != password.value.text -> {
+                    confirmPassword.value.text != password.value -> {
                         confirmPasswordErrorState.value = true
                     }
                     else -> {
