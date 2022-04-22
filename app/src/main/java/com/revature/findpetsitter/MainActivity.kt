@@ -99,7 +99,7 @@ fun Navigation(sitterViewModel: SitterViewModel) {
         composable(Routes.AppointmentScreen.route) {
             AppointmentScreen(navController = navController)
         }
-        composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}",
+        composable(Routes.ProfileDetails.route+"/{firstname}/{lastname}/{type}/{rating}/{price}",
         arguments = listOf(
             navArgument("firstname")
             {
@@ -116,17 +116,24 @@ fun Navigation(sitterViewModel: SitterViewModel) {
             navArgument("rating")
             {
                 type= NavType.FloatType
+            },
+            navArgument("price")
+            {
+                type= NavType.FloatType
             }
         )) {
             val firstname=it.arguments?.getString("firstname")
             val lastname=it.arguments?.getString("lastname")
             val type=it.arguments?.getString("type")
             val rating=it.arguments?.getFloat("rating")
+            val price=it.arguments?.getFloat("price")
             if (firstname != null) {
                 if (lastname != null) {
                     if (type != null) {
                         if (rating != null) {
-                            Screen_ProfileDetails(navHostController = navController,firstname,lastname,type,rating)
+                            if (price != null) {
+                                Screen_ProfileDetails(navHostController = navController,firstname,lastname,type,rating,price)
+                            }
                         }
                     }
                 }

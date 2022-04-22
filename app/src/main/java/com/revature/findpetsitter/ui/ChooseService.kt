@@ -48,7 +48,7 @@ fun chooseService(navHostController: NavHostController)
                         contentDescription = "",)
                 }
                 Row() {
-                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Kettle Service") }) {
+                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Kennel Service") }) {
                         Text(text = "Kennel Service")
                     }
                         AsyncImage(model = ImageRequest.Builder(LocalContext.current)

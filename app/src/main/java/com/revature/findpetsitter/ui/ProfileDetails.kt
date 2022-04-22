@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Screen_ProfileDetails(navHostController: NavHostController,firstname:String,lastname:String,type:String,rating:Float){
+fun Screen_ProfileDetails(navHostController: NavHostController,firstname:String,lastname:String,type:String,rating:Float,price:Float){
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
@@ -39,7 +39,7 @@ fun Screen_ProfileDetails(navHostController: NavHostController,firstname:String,
                         aboutMe = "This is the profile bio , consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
                                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
                                 "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                        price = 75f,
+                        price = price,
                         image = "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
                         rating = rating,
                         navHostController
