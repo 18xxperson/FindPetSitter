@@ -25,7 +25,7 @@ import com.revature.findpetsitter.Screens
 @Composable
 fun Addpet(navController: NavHostController)
 {
-    var context= LocalContext.current
+    val context= LocalContext.current
     Scaffold(bottomBar = {
         BottNavBar(navController = navController)
     }) {
