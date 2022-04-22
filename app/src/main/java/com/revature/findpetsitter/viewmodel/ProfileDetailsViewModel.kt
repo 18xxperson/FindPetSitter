@@ -26,16 +26,16 @@ class ProfileDetailsViewModel: ViewModel() {
             try {
                 val reviewService = RetroFitHelper.getReviewService()
 
-                val responseService = reviewService.getReviewList(Token("abcdefg12345"))
+                val responseService = reviewService.getReviewList()
 
                 if (responseService.isSuccessful) {
                     //if you receive a response from server
                     responseService.body()?.let { it ->
                         reviewsResultList.value = it.reviews
+                        Log.d("REVIEWS SERVICE","WAS SUCCESSFULL,,!!")
                         Log.d("Reviews Service", responseService.body().toString())
                     }
                 } else {
-
                     responseService.errorBody()?.let { error ->
                         Log.d("Retrieval Error", "Response Token $error")
                         error.close()

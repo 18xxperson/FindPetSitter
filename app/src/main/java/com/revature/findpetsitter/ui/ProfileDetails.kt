@@ -19,7 +19,6 @@ import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
 @Composable
 fun Screen_ProfileDetails(navHostController: NavHostController, viewModel:ProfileDetailsViewModel) {
     viewModel.reviewsList()
-
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
             title = { Text("Profile Details") })
@@ -27,7 +26,7 @@ fun Screen_ProfileDetails(navHostController: NavHostController, viewModel:Profil
 
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(.95f),
+            .fillMaxHeight(1f),
         ) {
             stickyHeader {
                 Column(modifier = Modifier
@@ -35,7 +34,7 @@ fun Screen_ProfileDetails(navHostController: NavHostController, viewModel:Profil
                 ) {
                     ProfileDetailsCard(
                         navHostController,
-                        firstName = "James",
+                        firstName = "Karen",
                         lastName = "Smith",
                         type = "Kennel Service",
                         aboutMe = "This is the profile bio , consectetur adipiscing elit, sed do eiusmod tempor incididunt " +

@@ -8,5 +8,5 @@ import retrofit2.http.GET
 
 interface ReviewsAPIService {
     @GET("reviews")
-    suspend fun getReviewList(@Body auth_token: Token): Response<SitterReviews>
+    suspend fun getReviewList(): Response<SitterReviews>
 }

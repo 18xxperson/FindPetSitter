@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.revature.findpetsitter.dao.UserDao
 import com.revature.findpetsitter.data.Appointment
+import com.revature.findpetsitter.data.Sitters
 import com.revature.findpetsitter.data.User
 import com.revature.findpetsitter.data.UserDatabase
 
@@ -40,15 +41,19 @@ class UserRepository(application: Application) {
     }
 
 
+    //sitters operations
+
 //    fun fetchsittertype(type:String): LiveData<List<Sitters>>
-    // {
-    //     return sitterDaO.getspecificSitters(types = type)
-    //  }
+//     {
+//         return userDao.getspecificSitters(types = type)
+//      }
+//
+//     fun sitters()=userDao.getSitters()
+//
+//       suspend fun insertsitter(sitters: Sitters)
+//      {
+//         userDao.insertSitter(sitters)
+//     }
 
-    // fun sitters()=sitterDaO.getSitters()
 
-    //   suspend fun insertsitter(sitters: Sitters)
-    //  {
-    //     sitterDaO.insertSitter(sitters)
-    // }
 }

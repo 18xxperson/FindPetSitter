@@ -28,12 +28,12 @@ interface UserDao {
 //    @Delete
 //    fun deleteSitter(sitters: Sitters)
 
-//    @Query("INSERT INTO appointments " +
-//            "(user_id,sitter_id,start_date,end_date,service_type,total_price) "+
-//            "VALUES (:user_id,:sitter_id,:start_date,:end_date,:service_type,:total_price")
+//    @Query("INSERT INTO appointment " +
+////            "(user_id,sitter_id,start_date,end_date,service_type,total_price) "+
+//            "VALUES (user_id,sitter_id,start_date,end_date,service_type,total_price")
 //    suspend fun insertAppointment(user_id:Int,sitter_id:Int,start_date:String,end_date:String,service_type:String,total_price:Float)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAppointment(appointment: Appointment)
 
     @Query("SELECT * FROM appointment")

@@ -31,7 +31,17 @@ import com.revature.findpetsitter.data.Appointment
 @Composable
 fun AppointmentScreen(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
     val id:Int=0
-    var apptList = appointmentViewModel.fetchAppointmentsById(id).observeAsState(listOf())
+    val appointment = Appointment(
+        user_id = 123,
+        sitter_id = 555,
+        start_date = "5/23/2022",
+        end_date = "5/28/2022",
+        service_type = "At-Home Service",
+        total_price = 145.50f
+    )
+    appointmentViewModel.insertAppointment(appointment)
+    var apptList = appointmentViewModel.fetchAppointmentsById(123).observeAsState(listOf())
+
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
             title = {Text("Lawyer Search")})
