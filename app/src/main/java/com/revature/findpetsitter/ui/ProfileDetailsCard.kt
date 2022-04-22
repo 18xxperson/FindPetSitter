@@ -31,7 +31,7 @@ import java.util.*
 
 
 @Composable
-fun ProfileDetailsCard(navHostController: NavHostController, firstName:String, lastName:String, type:String, aboutMe:String, price:Float, image:String, rating:Float, navController: NavController) {
+fun ProfileDetailsCard(navHostController: NavHostController, firstName:String, lastName:String, type:String, aboutMe:String, price:Float, image:String, rating:Float) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -113,25 +113,26 @@ fun ProfileDetailsCard(navHostController: NavHostController, firstName:String, l
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Row() {
-                        Button(onClick = {
-                            val calendar = Calendar.getInstance()
-                            val year = calendar.get(Calendar.YEAR)
-                            val month = calendar.get(Calendar.MONTH)
-                            val day = calendar.get(Calendar.DAY_OF_MONTH)
-                            calendar.time = Date()
-                            val datePickerDialog = DatePickerDialog(
-                                context,
-                                { DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                                }, year, month, day
-                            )
-                            datePickerDialog.show()
-                        }) {
-                            Text(text = "See Availability")
-                        }
+//                        Button(onClick = {
+//                            val calendar = Calendar.getInstance()
+//                            val year = calendar.get(Calendar.YEAR)
+//                            val month = calendar.get(Calendar.MONTH)
+//                            val day = calendar.get(Calendar.DAY_OF_MONTH)
+//                            calendar.time = Date()
+//                            val datePickerDialog = DatePickerDialog(
+//                                context,
+//                                { DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+//                                }, year, month, day
+//                            )
+//                            datePickerDialog.show()
+//                        }) {
+//                            Text(text = "See Availability")
+//                        }
                         Button(
-                            onClick = { navController.navigate(Routes.Schedule.route) },
+                            onClick = { navHostController.navigate(Routes.Schedule.route) },
                             modifier = Modifier.padding(horizontal = 4.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff02a60f))) {
+                            Text(text = "Schedule")
                             Icon(
                                 painter = painterResource(R.drawable.outline_today_black_24dp),
                                 contentDescription = "Schedule",

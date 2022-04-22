@@ -26,4 +26,8 @@ object RetroFitHelper {
     {
         return retrofit.create(ListAPIService::class.java)
     }
+
+    fun getReviewService(): ReviewsAPIService {
+        return retrofit.create(ReviewsAPIService::class.java)
+    }
 }
