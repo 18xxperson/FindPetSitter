@@ -19,6 +19,7 @@ import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
 @Composable
 fun Screen_ProfileDetails(navHostController: NavHostController, viewModel:ProfileDetailsViewModel) {
     viewModel.reviewsList()
+
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
             title = { Text("Profile Details") })
@@ -54,4 +55,6 @@ fun Screen_ProfileDetails(navHostController: NavHostController, viewModel:Profil
         }
     }
 }
+
+
 
