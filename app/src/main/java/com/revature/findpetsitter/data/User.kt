@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
+
 @Entity(tableName = "User_list")
 data class User(
 
@@ -14,31 +16,17 @@ data class User(
     var id: Int = 0,
 
     @ColumnInfo(name = "email")
-    var email: String,
+    var email: String = "",
 
     @ColumnInfo(name = "name")
-    var name: String,
+    var name: String = "",
 
     @ColumnInfo(name = "password")
-    var password: String,
+    var password: String = "",
 
     @ColumnInfo(name = "pets")
     var pets: Int = 0
 )
-/*    constructor() {}
 
-    constructor(id: Int, email: String, name: String, password: String, pets: Int) {
-        this.email = email
-        this.name = name
-        this.password = password
-        this.pets = pets
-    }
-    constructor(email: String, name: String, password: String, pets: Int) {
-        this.email = email
-        this.name = name
-        this.password = password
-        this.pets = pets
-    }
-}
 
- */
+

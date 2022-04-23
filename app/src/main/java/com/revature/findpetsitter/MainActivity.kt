@@ -148,7 +148,7 @@ fun Navigation(
             }
         }
         composable(Routes.Schedule.route) {
-            ScheduleService(navController = navController)
+            ScheduleService(navController = navController, appointmentViewModel)
         }
         composable(Routes.ListView.route+"/{type}",
             arguments = listOf(
