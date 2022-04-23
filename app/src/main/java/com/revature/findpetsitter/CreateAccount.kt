@@ -1,9 +1,6 @@
 package com.revature.findpetsitter
 
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,21 +22,17 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.revature.findpetsitter.data.User
-import com.revature.findpetsitter.ui.theme.FindPetSitterTheme
 import com.revature.findpetsitter.viewmodel.UserViewModel
 
 @Composable
 fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
 
     val context = LocalContext.current
-    val name = remember{mutableStateOf(TextFieldValue())}
-    val email = remember{mutableStateOf(TextFieldValue())}
-    val password = remember{mutableStateOf(TextFieldValue())}
+    val name = remember{mutableStateOf("")}
+    val email = remember{mutableStateOf("")}
+    val password = remember{mutableStateOf("")}
     val confirmPassword = remember{mutableStateOf(TextFieldValue())}
 
     val nameErrorState = remember{mutableStateOf(false)}
@@ -165,7 +158,7 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
             val msg = if(confirmPassword.value.text.isEmpty()) {
                 "Required"
             }
-            else if (confirmPassword.value.text != password.value.text) {
+            else if (confirmPassword.value.text != password.value) {
                 "Passwords don't match"
             }
             else {
@@ -178,19 +171,19 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
         Button(
             onClick = {
                 when {
-                    name.value.text.isEmpty() -> {
+                    name.value.isEmpty() -> {
                         nameErrorState.value = true
                     }
-                    email.value.text.isEmpty() -> {
+                    email.value.isEmpty() -> {
                         emailErrorState.value = true
                     }
-                    password.value.text.isEmpty() -> {
+                    password.value.isEmpty() -> {
                         passwordErrorState.value = true
                     }
                     confirmPassword.value.text.isEmpty() -> {
                         confirmPasswordErrorState.value = true
                     }
-                    confirmPassword.value.text != password.value.text -> {
+                    confirmPassword.value.text != password.value -> {
                         confirmPasswordErrorState.value = true
                     }
                     else -> {
@@ -198,13 +191,13 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
                             context, "Account Created",
                             Toast.LENGTH_SHORT
                         ).show()
-/*                        userViewModel.insertUser(
+                        userViewModel.insertUser(
                             User(
                                 email = email.value,
                                 name = name.value,
                                 password = password.value
                             )
-                        ) */
+                        )
                       navController.navigate(Routes.SignIn.route)
                     }
                 }
