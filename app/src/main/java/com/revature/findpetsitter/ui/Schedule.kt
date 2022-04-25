@@ -1,6 +1,8 @@
 package com.revature.findpetsitter.ui
 
 import android.app.DatePickerDialog
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -22,12 +24,19 @@ import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.data.Appointment
 import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
+import kotlin.math.roundToInt
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScheduleService(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
-    var startDate by remember {mutableStateOf("")}
-    var endDate by remember {mutableStateOf("")}
+    val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
+
+    var startDate by remember {mutableStateOf("4/26/2022")}
+    var endDate by remember {mutableStateOf("4/26/2022")}
     val context = LocalContext.current
 
     Scaffold(topBar = {
@@ -128,25 +137,26 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    OrderDetails(navController,appointmentViewModel,"Shirley", "Williams", "At-Home Service", 45f, 5)
+                    OrderDetails(navController,appointmentViewModel,"Shirley", "Williams", "At-Home Service", 45f, startDate,endDate)
                 }
             }
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,firstName:String,lastName:String,type:String,price:Float, numDays:Int) {
+fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,firstName:String,lastName:String,type:String,price:Float, start_date:String,end_date:String) {
     val scope= rememberCoroutineScope()
+    val days = dayDifference(start_date,end_date)
     //fake appointment to insert to db for testing
-    val appointment = Appointment(
-        id = 123,
-        user_id = 123,
-        sitter_id = 555,
-        start_date = "5/23/2022",
-        end_date = "5/28/2022",
-        service_type = "At-Home Service",
-        total_price = 145.50f
+    var appointment = Appointment(
+        user_id = 123,  //load data store w userID
+        sitter_id = 863,    //from nav/viewModel
+        start_date = start_date,
+        end_date = end_date,
+        service_type = "Kennel Service",   //nav/viewModel
+        total_price = days*price
     )
 
     Column(Modifier.padding(horizontal = 55.dp)) {
@@ -175,7 +185,7 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
             )
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "x " + numDays.toString() + " days",
+                text = "x " + days.toString() + " days",
                 style = MaterialTheme.typography.body1,
                 textAlign = TextAlign.End
             )
@@ -186,7 +196,7 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 6.dp),
-            text = "Subtotal: $${numDays * price}",
+            text = "Total: $" + (100*appointment.total_price).roundToInt()/100,
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Left
@@ -208,7 +218,14 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+fun dayDifference(start:String, end:String):Int {
+    val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
 
+    var startDate = LocalDate.parse(start,formatter)
+    var endDate = LocalDate.parse(end,formatter)
+    return ChronoUnit.DAYS.between(startDate,endDate).toInt()
+}
 
 @Preview
 @Composable

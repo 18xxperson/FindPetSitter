@@ -1,9 +1,11 @@
 package com.revature.findpetsitter
 
+import android.os.Build
 import android.os.Bundle
 import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -49,6 +51,7 @@ import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
 
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,6 +78,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(
     userViewModel: UserViewModel,
@@ -140,7 +144,7 @@ fun Navigation(
                 if (lastname != null) {
                     if (type != null) {
                         if (rating != null) {
-                            Screen_ProfileDetails(navHostController = navController,viewModel = profileDetailsViewModel)
+                            Screen_ProfileDetails(navController = navController,viewModel = profileDetailsViewModel)
                         }
                     }
                 }

@@ -30,7 +30,7 @@ class AppointmentsViewModel(appObj: Application): AndroidViewModel(appObj) {
         }
     }
 
-    fun deleteAppointmentById(id:Int) {
+    suspend fun deleteAppointmentById(id:Int) {
         viewModelScope.launch {
             userRepository.deleteAppointmentById(id)
         }

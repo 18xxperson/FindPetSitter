@@ -2,6 +2,8 @@ package com.revature.findpetsitter.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,13 +30,21 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.LiveData
 import com.revature.findpetsitter.data.Appointment
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppointmentScreen(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
     var list = appointmentViewModel.fetchAllAppointments().observeAsState(listOf())
+    val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
+
+//    var currentAppts = getCurrentAppts(list)
+//    var pastAppts = getPastAppts(list)
+
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
@@ -53,7 +63,7 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 4.dp, bottom = 4.dp)
+                            .padding(bottom = 4.dp)
                             .background(Color.LightGray)
                     ) {
                         Text(modifier = Modifier
@@ -63,50 +73,63 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                     }
                 }
 
-                items(list.value) { appt ->
-                    Card(
-                    ) {
-                        Column() {
-                            Text(text = appt.id.toString())
-                            Text(text = appt.user_id.toString())
-                            Text(text = appt.sitter_id.toString())
-                            appt.start_date?.let { it1 -> Text(text = it1) }
-                            appt.end_date?.let { it1 -> Text(text = it1) }
-                            appt.service_type?.let { it1 -> Text(text = it1) }
-                            Text(text = "$"+appt.total_price.toString())
-                        }
-
-                    //                    ApptCard(
-//                        fname = appt.,
-//                        lname = appt.lname,
-//                        startDate = appt.startDate,
-//                        endDate = appt.endDate,
-//                        price = appt.price,
-//                        type = appt.type
-//                    )
-                    }
+                    //current appts
+                items(list.value.filter { LocalDate.parse(it.end_date,formatter) > LocalDate.now() }) { appt ->
+                    ApptCard(
+                        id = appt.id,
+                        appointmentViewModel = appointmentViewModel,
+                        fname = "Julie",
+                        lname = "Doddson",
+                        startDate = appt.start_date!!,
+                        endDate = appt.end_date!!,
+                        price = appt.total_price,
+                        type = appt.service_type!!
+                    )
                 }
                 stickyHeader {
                     ListDivier(text = "Past Services")
                 }
-                    items(pastappts) { appt ->
+                    items(list.value.filter { LocalDate.parse(it.end_date,formatter) < LocalDate.now() }) { appt ->
                         PastApptCard(
-                            fname = appt.fname,
-                            lname = appt.lname,
-                            startDate = appt.startDate,
-                            endDate = appt.endDate,
-                            price = appt.price,
-                            type = appt.type
+                            fname = "Julie",
+                            lname = "Doddson",
+                            startDate = appt.start_date!!,
+                            endDate = appt.end_date!!,
+                            price = appt.total_price,
+                            type = appt.service_type!!
                         )
                     }
                 }
             }
         }
     }
+
+//@RequiresApi(Build.VERSION_CODES.O)
+//fun getPastAppts(list: State<List<Appointment>>): State<List<Appointment>> {
+//    val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+//
+//    return list.value.filter {
+//        //filter all appointments when end_date in the past
+//        LocalDate.parse(it.end_date,formatter) < LocalDate.now()
+//    }
 //}
+//
+//@RequiresApi(Build.VERSION_CODES.O)
+//fun getCurrentAppts(list: State<List<Appointment>>): State<List<Appointment>> {
+//    val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+//
+//    list.value.filter {
+//        //filter all appointments when end_date in the future
+//       LocalDate.parse(it.end_date,formatter) > LocalDate.now()
+//    }
+//    return list.
+//}
+////}
 
 @Composable
-fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Float,type:String) {
+fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,fname:String,lname:String,startDate:String,endDate:String,price:Float,type:String) {
+    val scope= rememberCoroutineScope()
+
     Row(
         Modifier
             .fillMaxWidth()
@@ -161,7 +184,9 @@ fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Flo
                                 .size(50.dp)
                                 .padding(horizontal = 4.dp)
                                 .clickable(onClick = {
-                                    //delete appt
+                                    scope.launch {
+                                        appointmentViewModel.deleteAppointmentById(id)
+                                    }
                                 })
                         )
                     }
