@@ -10,15 +10,15 @@ import com.revature.findpetsitter.data.User
 @Dao
 interface UserDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertUser(user: User)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUser(user: User)
 
 
     @Query("SELECT * FROM User_list ORDER BY id ASC")
     fun readAllData(): LiveData<List<User>>
 
-    @Query("SELECT * FROM User_list WHERE id = :id")
-    fun getspecificuser(id: Int) :User
+    @Query("SELECT * FROM User_list WHERE id=:id")
+    fun getspecificuser(id: Int) :LiveData<List<User>>
 //    @Query("SELECT * FROM Sitters")
 //    fun getSitters():LiveData<List<Sitters>>
 //

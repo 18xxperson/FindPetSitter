@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.revature.findpetsitter.data.User
 import com.revature.findpetsitter.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
@@ -40,6 +42,7 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
     val passwordErrorState = remember{mutableStateOf(false)}
     val confirmPasswordErrorState = remember{mutableStateOf(false)}
     val scrollState = rememberScrollState()
+    val scope= rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -191,13 +194,15 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
                             context, "Account Created",
                             Toast.LENGTH_SHORT
                         ).show()
-                        userViewModel.insertUser(
-                            User(
-                                email = email.value,
-                                name = name.value,
-                                password = password.value
+                        scope.launch {
+                            userViewModel.insertUser(
+                                User(
+                                    email = email.value,
+                                    name = name.value,
+                                    password = password.value
+                                )
                             )
-                        )
+                        }
                       navController.navigate(Routes.SignIn.route)
                     }
                 }
