@@ -138,15 +138,26 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
                 onClick = {
                     val holder = userList.value
                     holder.forEach { user ->
-//                        val userId = user.id
-//                        scope.launch {
-//                            dataStore.saveId(userId)
-//                        }
+                        val userId = user.id
+                        scope.launch {
+                            dataStore.saveId(userId)
+                        }
                         if (email.value.text != user.email &&
                             password.value.text != user.password) {
-                            emailErrorState.value = true}
+                            emailErrorState.value = true
+                            Toast.makeText(context,
+                                "Email or password do not match",
+                                Toast.LENGTH_SHORT).show()
+                        } else  {
+                        passwordErrorState.value = false
+                        emailErrorState.value = false
+                        Toast.makeText(context,
+                            "Signed in successfully",
+                            Toast.LENGTH_SHORT).show()
+                            navController.navigate(Routes.ChooseService.route)
                     }
-                    when {
+                }
+ /*                       when {
                               email.value.text.isEmpty() -> {
                                   emailErrorState.value = true
                               }
@@ -163,7 +174,7 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
 
                               }
 
-                          }
+                          } */
 
                 },
                 shape = RoundedCornerShape(50.dp),
