@@ -13,9 +13,12 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertUser(user: User)
 
+
     @Query("SELECT * FROM User_list ORDER BY id ASC")
     fun readAllData(): LiveData<List<User>>
 
+    @Query("SELECT * FROM User_list WHERE id = :id")
+    fun getspecificuser(id: Int) :User
 //    @Query("SELECT * FROM Sitters")
 //    fun getSitters():LiveData<List<Sitters>>
 //
@@ -34,12 +37,12 @@ interface UserDao {
 //    suspend fun insertAppointment(user_id:Int,sitter_id:Int,start_date:String,end_date:String,service_type:String,total_price:Float)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAppointment(appointment: Appointment)
+    suspend fun insertAppointment(appointment: Appointment)
 
     @Query("SELECT * FROM appointment")
     fun readAllAppointments():LiveData<List<Appointment>>
 
-    @Query("SELECT * FROM appointment WHERE id=:id")
+    @Query("SELECT * FROM appointment WHERE user_id=:id")
     fun getAppointmentsById(id:Int):LiveData<List<Appointment>>
 
     @Query("UPDATE appointment SET start_date=:start_date, end_date=:end_date, total_price=:total_price WHERE id=:id")
