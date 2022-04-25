@@ -1,5 +1,6 @@
 package com.revature.findpetsitter.ui
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -10,20 +11,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.revature.findpetsitter.BottNavBar
 import com.revature.findpetsitter.Routes
-import com.revature.findpetsitter.Screens
-
+import com.revature.findpetsitter.viewmodel.UserViewModel
+import java.lang.Exception
 
 
 @Composable
-fun Addpet(navController: NavHostController)
+fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
 {
     var context= LocalContext.current
     Scaffold(bottomBar = {
@@ -65,6 +63,16 @@ fun Addpet(navController: NavHostController)
         Button(onClick = {
             if(description!=""&&type!=""&&name!="") {
                 Toast.makeText(context, "Adding Pet Successful", Toast.LENGTH_LONG).show()
+                try {
+                    val users= userViewModel.readAllData().value.orEmpty()
+                    val user= users[0]
+                    user.pets++
+                    userViewModel.insertUser(user)
+                }catch (e:Exception)
+                {
+                    Log.d("List","Please create an account")
+                }
+
                 navController.navigate(Routes.ChooseService.route)
             }
             else{

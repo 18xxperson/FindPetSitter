@@ -136,14 +136,24 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
                 onClick = {
-
-                          when {
+                    val holder = userList.value
+                    holder.forEach { user ->
+//                        val userId = user.id
+//                        scope.launch {
+//                            dataStore.saveId(userId)
+//                        }
+                        if (email.value.text != user.email &&
+                            password.value.text != user.password) {
+                            emailErrorState.value = true}
+                    }
+                    when {
                               email.value.text.isEmpty() -> {
                                   emailErrorState.value = true
                               }
                               password.value.text.isEmpty() -> {
                                   passwordErrorState.value = true
                               }
+
                               else -> {
                                   passwordErrorState.value = false
                                   emailErrorState.value = false
@@ -154,10 +164,6 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
                               }
 
                           }
-
- //                           scope.launch {
- //                               dataStore.saveId()
- //                           }
 
                 },
                 shape = RoundedCornerShape(50.dp),

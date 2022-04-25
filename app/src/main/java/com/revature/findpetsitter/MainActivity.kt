@@ -12,18 +12,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -107,7 +106,7 @@ fun Navigation(
             CreateAccount(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.AddPet.route){
-            Addpet(navController)
+            Addpet(navController,userViewModel = userViewModel)
         }
         composable(Routes.ChooseService.route){
             chooseService(navHostController = navController)
@@ -196,7 +195,7 @@ fun SplashScreen(navController: NavController) {
             contentDescription = "Logo",
             modifier = Modifier
                 .scale(scale.value)
-                .size(250.dp))
+                .size(300.dp))
     }
 }
 
@@ -219,9 +218,10 @@ fun MainScreen(navController: NavController) {
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
                     .padding(20.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue),
                 shape = RoundedCornerShape(50.dp))
             {
-                Text("Create Account", fontWeight = FontWeight.ExtraBold)
+                Text("Create Account", color = Color.White, fontWeight = FontWeight.ExtraBold)
             }
 
             Row(
