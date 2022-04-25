@@ -23,6 +23,8 @@ class UserRepository(application: Application) {
         userDao.insertUser(user)
     }
 
+
+
     //Appointments operations
     suspend fun insertAppointment(appointment:Appointment) {
         userDao.insertAppointment(appointment)
@@ -54,6 +56,7 @@ class UserRepository(application: Application) {
 //      {
 //         userDao.insertSitter(sitters)
 //     }
+
 
 
 }

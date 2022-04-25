@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.revature.findpetsitter.data.Appointment
 import com.revature.findpetsitter.repository.UserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AppointmentsViewModel(appObj: Application): AndroidViewModel(appObj) {
@@ -22,7 +24,7 @@ class AppointmentsViewModel(appObj: Application): AndroidViewModel(appObj) {
         return userRepository.getAppointmentsById(id)
     }
 
-    fun insertAppointment(appointment: Appointment) {
+    suspend fun insertAppointment(appointment: Appointment) {
         viewModelScope.launch {
             userRepository.insertAppointment(appointment)
         }

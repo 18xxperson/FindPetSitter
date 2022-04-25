@@ -19,10 +19,13 @@ import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
 import com.revature.findpetsitter.R
 import com.revature.findpetsitter.Routes
+import com.revature.findpetsitter.data.Appointment
+import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
+import kotlinx.coroutines.launch
 import java.util.*
 
 @Composable
-fun ScheduleService(navController: NavHostController) {
+fun ScheduleService(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
     var startDate by remember {mutableStateOf("")}
     var endDate by remember {mutableStateOf("")}
     val context = LocalContext.current
@@ -125,7 +128,7 @@ fun ScheduleService(navController: NavHostController) {
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    OrderDetails(navController,"Shirley", "Williams", "At-Home Service", 45f, 5)
+                    OrderDetails(navController,appointmentViewModel,"Shirley", "Williams", "At-Home Service", 45f, 5)
                 }
             }
         }
@@ -133,7 +136,19 @@ fun ScheduleService(navController: NavHostController) {
 }
 
 @Composable
-fun OrderDetails(navController:NavHostController,firstName:String,lastName:String,type:String,price:Float, numDays:Int) {
+fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,firstName:String,lastName:String,type:String,price:Float, numDays:Int) {
+    val scope= rememberCoroutineScope()
+    //fake appointment to insert to db for testing
+    val appointment = Appointment(
+        id = 123,
+        user_id = 123,
+        sitter_id = 555,
+        start_date = "5/23/2022",
+        end_date = "5/28/2022",
+        service_type = "At-Home Service",
+        total_price = 145.50f
+    )
+
     Column(Modifier.padding(horizontal = 55.dp)) {
         Text(
             modifier = Modifier
@@ -181,21 +196,19 @@ fun OrderDetails(navController:NavHostController,firstName:String,lastName:Strin
     Column(Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
+            //insert fake appt into db
+            scope.launch {
+                appointmentViewModel.insertAppointment(appointment)
+            }
             navController.navigate(Routes.AppointmentScreen.route)
         },
             modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)) {
             Text(text = "Schedule")
         }
     }
-
-
 }
 
-@Composable
-fun AlertDiaglog(/*pass in values to post*/) {
 
-
-}
 
 @Preview
 @Composable

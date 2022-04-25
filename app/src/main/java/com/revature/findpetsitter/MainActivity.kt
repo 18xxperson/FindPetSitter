@@ -83,6 +83,7 @@ fun Navigation(
     profileDetailsViewModel: ProfileDetailsViewModel
 ) {
 
+
     val navController = rememberNavController()
     NavHost(
         navController = navController,
@@ -96,13 +97,13 @@ fun Navigation(
         }
         composable(Routes.SignIn.route) {
 
-            SignIn(navController = navController)
+            SignIn(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.CreateAccount.route) {
             CreateAccount(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.AddPet.route){
-            Addpet(navController)
+            Addpet(navController,userViewModel = userViewModel)
         }
         composable(Routes.ChooseService.route){
             chooseService(navHostController = navController)
@@ -147,7 +148,7 @@ fun Navigation(
             }
         }
         composable(Routes.Schedule.route) {
-            ScheduleService(navController = navController)
+            ScheduleService(navController = navController, appointmentViewModel)
         }
         composable(Routes.ListView.route+"/{type}",
             arguments = listOf(
