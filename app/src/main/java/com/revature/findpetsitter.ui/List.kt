@@ -9,17 +9,20 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.data.Sitters
+import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import com.revature.findpetsitter.viewmodel.SitterViewModel
 
 
 @Composable
-fun displayList(navController: NavController,type: String,sitterViewModel: SitterViewModel) {
+fun displayList(navController: NavController,type: String,sitterViewModel: SitterViewModel, apptViewModel:AppointmentsViewModel) {
       var list=sitterViewModel.sitterResultList.value
       list=list.filter { it.type==type }
    //   list.forEach{
@@ -40,7 +43,8 @@ fun displayList(navController: NavController,type: String,sitterViewModel: Sitte
                         lastname = sitter.lastname,
                         rating = sitter.rating,
                         type, navController = navController,
-                        price = sitter.price
+                        price = sitter.price,
+                        apptViewModel
                     )
 
               //  }
@@ -52,13 +56,26 @@ fun displayList(navController: NavController,type: String,sitterViewModel: Sitte
 
 
 @Composable
-fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navController: NavController,price:Double)
+fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navController: NavController,price:Double, viewModel:AppointmentsViewModel)
 {
+    var sitter: MutableState<Sitters>? = null
     Card(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()
-            .clickable { navController.navigate(Routes.ProfileDetails.route+"/$firstname/$lastname/$type/$rating") }
+            .clickable {
+                viewModel.clickedSitter = mutableStateOf(
+                    Sitters(
+                        firstname = firstname,
+                        lastname = lastname,
+                        id=100,
+                        rating = rating,
+                        type=type,
+                        price=price,
+                    )
+                )
+                navController.navigate(
+                    Routes.ProfileDetails.route+"/$firstname/$lastname/$type/$rating") }
             .wrapContentHeight(),
         shape = MaterialTheme.shapes.medium,
         elevation = 5.dp,

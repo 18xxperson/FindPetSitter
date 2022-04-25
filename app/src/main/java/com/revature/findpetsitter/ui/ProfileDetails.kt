@@ -12,16 +12,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import com.revature.findpetsitter.viewmodel.ProfileDetailsViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Screen_ProfileDetails(navController: NavController, viewModel:ProfileDetailsViewModel) {
+fun Screen_ProfileDetails(navController: NavController, viewModel:ProfileDetailsViewModel,apptViewModel:AppointmentsViewModel) {
     viewModel.reviewsList()
-//    val firstName = navController.currentBackStackEntry?.arguments?.getString("firstname")
-//    val lastName = navController.currentBackStackEntry?.arguments?.getString("lastname")
-//    val type = navController.currentBackStackEntry?.arguments?.getString("type")
-//    val price = navController.currentBackStackEntry?.arguments?.getDouble("price")?.toFloat()
+//    apptViewModel.clickedSitter.value.id = 556
+//    apptViewModel.clickedSitter.value.rating = 4.5
+//    apptViewModel.clickedSitter.value.firstname = navController.currentBackStackEntry?.arguments?.getString("firstname").toString()
+//    apptViewModel.clickedSitter.value.lastname = navController.currentBackStackEntry?.arguments?.getString("lastname").toString()
+//    apptViewModel.clickedSitter.value.type = navController.currentBackStackEntry?.arguments?.getString("type").toString()
+//    apptViewModel.clickedSitter.value.price = navController.currentBackStackEntry?.arguments?.getDouble("price")!!
+
     Scaffold(topBar = {
         TopAppBar(
             backgroundColor = MaterialTheme.colors.primary,
@@ -36,18 +40,20 @@ fun Screen_ProfileDetails(navController: NavController, viewModel:ProfileDetails
                 Column(modifier = Modifier
                     .fillMaxWidth()
                 ) {
-                    ProfileDetailsCard(
-                        navController,
-                        firstName = "John",//firstName!!,
-                        lastName = "Smith",///lastName!!,
-                        type = "Pet Daycare",//type!!,
-                        aboutMe = "This is the profile bio , consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
-                                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
-                                "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                        price = 100f,
-                        image = "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
-                        rating = 4.5f
-                    )
+                    apptViewModel.clickedSitter?.value?.let { it1 ->
+                        ProfileDetailsCard(
+                            navController,
+                            firstName = it1.firstname,
+                            lastName = apptViewModel.clickedSitter!!.value.lastname,
+                            type = apptViewModel.clickedSitter!!.value.type,
+                            aboutMe = "This is the profile bio , consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
+                                    "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
+                                    "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                            price = apptViewModel.clickedSitter!!.value.price.toFloat(),
+                            image = "https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg",
+                            rating = apptViewModel.clickedSitter!!.value.rating.toFloat()
+                        )
+                    }
                 }
             }
             items(viewModel.reviewsResultList.value) { review ->

@@ -137,7 +137,7 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    OrderDetails(navController,appointmentViewModel,"Shirley", "Williams", "At-Home Service", 45f, startDate,endDate)
+                    OrderDetails(navController,appointmentViewModel,appointmentViewModel.clickedSitter!!.value.firstname, appointmentViewModel.clickedSitter!!.value.lastname, appointmentViewModel.clickedSitter!!.value.type, 45f, startDate,endDate)
                 }
             }
         }

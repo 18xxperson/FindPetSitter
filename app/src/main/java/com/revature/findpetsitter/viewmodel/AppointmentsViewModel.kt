@@ -1,10 +1,12 @@
 package com.revature.findpetsitter.viewmodel
 
 import android.app.Application
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.revature.findpetsitter.data.Appointment
+import com.revature.findpetsitter.data.Sitters
 import com.revature.findpetsitter.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +15,7 @@ import kotlinx.coroutines.launch
 class AppointmentsViewModel(appObj: Application): AndroidViewModel(appObj) {
 
     private val userRepository: UserRepository = UserRepository(appObj)
+    var clickedSitter: MutableState<Sitters>? = null
 
 
 

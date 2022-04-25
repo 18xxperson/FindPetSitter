@@ -145,7 +145,7 @@ fun Navigation(
                 if (lastname != null) {
                     if (type != null) {
                         if (rating != null) {
-                            Screen_ProfileDetails(navController = navController,viewModel = profileDetailsViewModel)
+                            Screen_ProfileDetails(navController = navController,viewModel = profileDetailsViewModel,apptViewModel = appointmentViewModel)
                         }
                     }
                 }
@@ -164,7 +164,7 @@ fun Navigation(
         {
             val type=it.arguments?.getString("type")
             if (type != null) {
-                displayList(type = type, navController = navController,sitterViewModel = sitterViewModel)
+                displayList(type = type, navController = navController,sitterViewModel = sitterViewModel,apptViewModel = appointmentViewModel)
             }
         }
     }
