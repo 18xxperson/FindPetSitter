@@ -70,11 +70,11 @@ fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
             if(description!=""&&type!=""&&name!="") {
                 Toast.makeText(context, "Adding Pet Successful", Toast.LENGTH_LONG).show()
 
-                   val users = id?.let { userViewModel.readspecificuser(it) }?.value.orEmpty()
                     val allusers=userViewModel.readAllData().value.orEmpty()
                  //   val user=allusers[0]
                 //    val users=userViewModel.readspecificuser(1).value.orEmpty()
-                    val user = users[0]
+                    val filuser = id?.let { userViewModel.readspecificuser(it) }?.value.orEmpty()
+                    val user= filuser[0]
                     user.pets++
                     scope.launch {
                         userViewModel.insertUser(user)
