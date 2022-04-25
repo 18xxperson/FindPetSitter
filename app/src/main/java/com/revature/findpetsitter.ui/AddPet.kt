@@ -16,7 +16,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.revature.findpetsitter.BottNavBar
 import com.revature.findpetsitter.Routes
+import com.revature.findpetsitter.datastore.StoreUserId
 import com.revature.findpetsitter.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 
@@ -24,6 +26,10 @@ import java.lang.Exception
 fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
 {
     val context= LocalContext.current
+    val scope= rememberCoroutineScope()
+//    val id=StoreUserId(context).getId.collectAsState(initial = "").value?.let{
+ //       it.toInt()
+ //   }
     Scaffold(bottomBar = {
         BottNavBar(navController = navController)
     }) {
@@ -64,16 +70,20 @@ fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
             if(description!=""&&type!=""&&name!="") {
                 Toast.makeText(context, "Adding Pet Successful", Toast.LENGTH_LONG).show()
                 try {
-                    val users= userViewModel.readAllData().value.orEmpty()
-                    val user= users[0]
+                //    val users = id?.let { userViewModel.readspecificuser(it) }?.value.orEmpty()
+                    val users=userViewModel.readspecificuser(1).value.orEmpty()
+                    val user = users[0]
                     user.pets++
-                    userViewModel.insertUser(user)
+                    scope.launch {
+                        userViewModel.insertUser(user)
+                    }
+
+
                 }catch (e:Exception)
                 {
                     Log.d("List","Please create an account")
                 }
 
-                navController.navigate(Routes.ChooseService.route)
             }
             else{
                 Toast.makeText(context, "Please add to every field you have left empty", Toast.LENGTH_LONG).show()

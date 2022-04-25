@@ -23,7 +23,10 @@ class UserRepository(application: Application) {
         userDao.insertUser(user)
     }
 
-
+    fun getspecifieduser(id: Int): LiveData<List<User>>
+    {
+        return userDao.getspecificuser(id)
+    }
 
     //Appointments operations
     suspend fun insertAppointment(appointment:Appointment) {
