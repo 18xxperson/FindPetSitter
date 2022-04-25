@@ -103,7 +103,7 @@ fun Navigation(
             CreateAccount(navController = navController, userViewModel = userViewModel)
         }
         composable(Routes.AddPet.route){
-            Addpet(navController)
+            Addpet(navController,userViewModel = userViewModel)
         }
         composable(Routes.ChooseService.route){
             chooseService(navHostController = navController)
