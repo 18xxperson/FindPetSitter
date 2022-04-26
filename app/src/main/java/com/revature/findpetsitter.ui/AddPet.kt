@@ -27,9 +27,9 @@ fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
 {
     val context= LocalContext.current
     val scope= rememberCoroutineScope()
-//    val id=StoreUserId(context).getId.collectAsState(initial = "").value?.let{
- //       it.toInt()
- //   }
+    val id=StoreUserId(context).getId.collectAsState(initial = "0").value?.let{
+        it.toInt()
+    }
     Scaffold(bottomBar = {
         BottNavBar(navController = navController)
     }) {
@@ -69,23 +69,22 @@ fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
         Button(onClick = {
             if(description!=""&&type!=""&&name!="") {
                 Toast.makeText(context, "Adding Pet Successful", Toast.LENGTH_LONG).show()
-                try {
 
-                //    val users = id?.let { userViewModel.readspecificuser(it) }?.value.orEmpty()
                     val allusers=userViewModel.readAllData().value.orEmpty()
-                    val user=allusers[0]
-                 //   val users=userViewModel.readspecificuser(1).value.orEmpty()
-                 //   val user = users[0]
+                 //   val user=allusers[0]
+                //    val users=userViewModel.readspecificuser(1).value.orEmpty()
+                 //   val filteruser=allusers.first { it.id==id }
+                 //   println(filteruser.name)
+                 //   println(filteruser.email)
+                    val user = id?.let { userViewModel.readspecificuser(it) }?.value
+                if (user != null) {
                     user.pets++
-                    scope.launch {
-                        userViewModel.insertUser(user)
-                    }
-
-
-                }catch (e:Exception)
-                {
-                    Log.d("List","Please create an account")
                 }
+                    scope.launch {
+                        if (user != null) {
+                            userViewModel.insertUser(user)
+                        }
+                    }
 
             }
             else{
