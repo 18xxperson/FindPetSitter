@@ -32,7 +32,7 @@ class UserViewModel(app: Application):AndroidViewModel(app) {
         return repository.readAllData
     }
 
-    fun readspecificuser(id:Int):LiveData<List<User>>
+    fun readspecificuser(id:Int):LiveData<User>
     {
         return repository.getspecifieduser(id)
     }

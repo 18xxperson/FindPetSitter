@@ -73,11 +73,17 @@ fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
                     val allusers=userViewModel.readAllData().value.orEmpty()
                  //   val user=allusers[0]
                 //    val users=userViewModel.readspecificuser(1).value.orEmpty()
-                    val filuser = id?.let { userViewModel.readspecificuser(it) }?.value.orEmpty()
-                    val user= filuser[0]
+                 //   val filteruser=allusers.first { it.id==id }
+                 //   println(filteruser.name)
+                 //   println(filteruser.email)
+                    val user = id?.let { userViewModel.readspecificuser(it) }?.value
+                if (user != null) {
                     user.pets++
+                }
                     scope.launch {
-                        userViewModel.insertUser(user)
+                        if (user != null) {
+                            userViewModel.insertUser(user)
+                        }
                     }
 
             }

@@ -23,7 +23,7 @@ class UserRepository(application: Application) {
         userDao.insertUser(user)
     }
 
-    fun getspecifieduser(id: Int): LiveData<List<User>>
+    fun getspecifieduser(id: Int): LiveData<User>
     {
         return userDao.getspecificuser(id)
     }
