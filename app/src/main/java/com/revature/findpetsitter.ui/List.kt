@@ -22,6 +22,7 @@ import com.revature.findpetsitter.viewmodel.SitterViewModel
 fun displayList(navController: NavController,type: String,sitterViewModel: SitterViewModel) {
       var list=sitterViewModel.sitterResultList.value
       list=list.filter { it.type==type }
+      list=list.sortedBy { it.rating }.asReversed()
    //   list.forEach{
     //      sitterViewModel.insertSitter(it)
     //  }
