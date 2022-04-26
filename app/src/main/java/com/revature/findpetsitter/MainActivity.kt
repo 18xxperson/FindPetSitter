@@ -236,7 +236,7 @@ fun MainScreen(navController: NavController) {
                     modifier = Modifier.padding(10.dp))
 
                 ClickableText(text = AnnotatedString(text = "Sign In"),
-                    onClick = { navController.navigate(Routes.ChooseService.route)
+                    onClick = { navController.navigate(Routes.SignIn.route)
                     })
             } //end row
 

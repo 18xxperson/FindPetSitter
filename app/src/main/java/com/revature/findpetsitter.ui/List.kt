@@ -85,7 +85,7 @@ fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navCon
            Text(text = "$firstname $lastname")
            Text("rating: $rating")
            Text(text = type)
-           Text(text = "price: $$price per hour")
+           Text(text = "price: $$price per day")
        }
     }
 }

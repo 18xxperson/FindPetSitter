@@ -12,17 +12,11 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(app: Application):AndroidViewModel(app) {
 
-    private val readAllData: LiveData<List<User>>
-    private val repository: UserRepository
+    private val repository: UserRepository=UserRepository(app)
 
-    init {
-        val userDao = UserDatabase.getDatabase(app).userDao()
-        repository = UserRepository(app)
-        readAllData = repository.readAllData
-    }
 
-    fun insertUser(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
+    suspend fun insertUser(user: User) {
+        viewModelScope.launch {
             repository.insertUser(user)
         }
     }
@@ -36,6 +30,11 @@ class UserViewModel(app: Application):AndroidViewModel(app) {
     fun readAllData():LiveData<List<User>>
     {
         return repository.readAllData
+    }
+
+    fun readspecificuser(id:Int):LiveData<User>
+    {
+        return repository.getspecifieduser(id)
     }
 
 }

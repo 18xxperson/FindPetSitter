@@ -80,12 +80,12 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
                     emailErrorState.value = false
                 }
                 email.value = it
-           },
+            },
             isError = emailErrorState.value,
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(
-                onDone = {keyboardController?.hide()})
+                onDone = { keyboardController?.hide() })
         )
         if (emailErrorState.value) {
             Text(text = "Required", color = Color.Red)
@@ -121,7 +121,7 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
             },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(
-                onDone = {keyboardController?.hide()}),
+                onDone = { keyboardController?.hide() }),
             singleLine = true,
             visualTransformation = if (passwordVisibility.value)
                 PasswordVisualTransformation()
@@ -138,15 +138,56 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
                 onClick = {
                     val holder = userList.value
                     holder.forEach { user ->
-//                        val userId = user.id
-//                        scope.launch {
-//                            dataStore.saveId(userId)
-//                        }
+                        val userId = user.id
+                        scope.launch {
+                            dataStore.saveId(userId)
+                        }
                         if (email.value.text != user.email &&
-                            password.value.text != user.password) {
-                            emailErrorState.value = true}
+                            password.value.text != user.password
+                        ) {
+                            passwordErrorState.value = true
+                            emailErrorState.value = true
+                            Toast.makeText(
+                                context,
+                                "Email or password do not match",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else if (email.value.text == user.email &&
+                            password.value.text != user.password
+                        ) {
+                            passwordErrorState.value = true
+                            emailErrorState.value = false
+                            Toast.makeText(
+                                context,
+                                "Email or password do not match",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else if (email.value.text != user.email &&
+                            password.value.text == user.password
+                        ) {
+                            passwordErrorState.value = false
+                            emailErrorState.value = true
+                            Toast.makeText(
+                                context,
+                                "Email or password do not match",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        else {
+                            passwordErrorState.value = false
+                            emailErrorState.value = false
+                            Toast.makeText(
+                                context,
+                                "Signed in successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            navController.navigate(Routes.ChooseService.route)
+                        }
+
+
                     }
-                    when {
+                    /*                       when {
                               email.value.text.isEmpty() -> {
                                   emailErrorState.value = true
                               }
@@ -160,10 +201,10 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
                                   Toast.makeText(context,
                                   "Signed in successfully",
                                   Toast.LENGTH_SHORT).show()
-
+                                  navController.navigate(Routes.ChooseService.route)
                               }
 
-                          }
+                          } */
 
                 },
                 shape = RoundedCornerShape(50.dp),
