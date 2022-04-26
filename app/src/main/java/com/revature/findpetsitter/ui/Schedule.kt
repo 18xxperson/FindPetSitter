@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import com.revature.findpetsitter.R
 import com.revature.findpetsitter.Routes
 import com.revature.findpetsitter.data.Appointment
+import com.revature.findpetsitter.datastore.StoreUserId
 import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -33,11 +34,15 @@ import kotlin.math.roundToInt
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScheduleService(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
+    val context = LocalContext.current
+    val id = StoreUserId(context).getId.collectAsState(initial="0").value?.let{
+        it.toInt()
+    }
     val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
 
     var startDate by remember {mutableStateOf("4/26/2022")}
     var endDate by remember {mutableStateOf("4/26/2022")}
-    val context = LocalContext.current
+
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
@@ -137,7 +142,9 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    OrderDetails(navController,appointmentViewModel,appointmentViewModel.clickedSitter!!.value.firstname, appointmentViewModel.clickedSitter!!.value.lastname, appointmentViewModel.clickedSitter!!.value.type, 45f, startDate,endDate)
+                    if (id != null) {
+                        OrderDetails(navController,appointmentViewModel,id,appointmentViewModel.clickedSitter!!.value.firstname,appointmentViewModel.clickedSitter!!.value.lastname, appointmentViewModel.clickedSitter!!.value.type, 45f, startDate,endDate)
+                    }
                 }
             }
         }
@@ -146,16 +153,18 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,firstName:String,lastName:String,type:String,price:Float, start_date:String,end_date:String) {
+fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,id:Int,firstName:String,lastName:String,type:String,price:Float, start_date:String,end_date:String) {
     val scope= rememberCoroutineScope()
     val days = dayDifference(start_date,end_date)
+
     //fake appointment to insert to db for testing
     var appointment = Appointment(
-        user_id = 123,  //load data store w userID
-        sitter_id = 863,    //from nav/viewModel
+        user_id = id,  //load data store w userID
+        sitter_id = 863,
+        sitter_name = firstName + " " + lastName,
         start_date = start_date,
         end_date = end_date,
-        service_type = "Kennel Service",   //nav/viewModel
+        service_type = type,
         total_price = days*price
     )
 

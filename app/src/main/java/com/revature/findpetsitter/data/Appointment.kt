@@ -16,6 +16,8 @@ data class Appointment(
     val user_id:Int,
     @ColumnInfo(name="sitter_id")
     val sitter_id:Int,
+    @ColumnInfo(name="sitter_name")
+    val sitter_name:String?=null,
     @ColumnInfo(name="start_date")
     val start_date:String?=null,
     @ColumnInfo(name="end_date")

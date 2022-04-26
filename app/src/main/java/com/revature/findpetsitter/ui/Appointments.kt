@@ -78,8 +78,7 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                     ApptCard(
                         id = appt.id,
                         appointmentViewModel = appointmentViewModel,
-                        fname = "Julie",
-                        lname = "Doddson",
+                        name = appt.sitter_name!!,
                         startDate = appt.start_date!!,
                         endDate = appt.end_date!!,
                         price = appt.total_price,
@@ -104,30 +103,8 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
         }
     }
 
-//@RequiresApi(Build.VERSION_CODES.O)
-//fun getPastAppts(list: State<List<Appointment>>): State<List<Appointment>> {
-//    val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-//
-//    return list.value.filter {
-//        //filter all appointments when end_date in the past
-//        LocalDate.parse(it.end_date,formatter) < LocalDate.now()
-//    }
-//}
-//
-//@RequiresApi(Build.VERSION_CODES.O)
-//fun getCurrentAppts(list: State<List<Appointment>>): State<List<Appointment>> {
-//    val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-//
-//    list.value.filter {
-//        //filter all appointments when end_date in the future
-//       LocalDate.parse(it.end_date,formatter) > LocalDate.now()
-//    }
-//    return list.
-//}
-////}
-
 @Composable
-fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,fname:String,lname:String,startDate:String,endDate:String,price:Float,type:String) {
+fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,name:String,startDate:String,endDate:String,price:Float,type:String) {
     val scope= rememberCoroutineScope()
 
     Row(
@@ -140,7 +117,7 @@ fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,fname:String,lna
                 Column(Modifier.padding(12.dp)) {
                     Row() {
                         Text(
-                            text = fname + " " + lname,
+                            text = name,
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colors.onSurface,
@@ -166,17 +143,6 @@ fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,fname:String,lna
                     }
                 }
                 Column(Modifier.fillMaxSize(),horizontalAlignment = Alignment.End) {
-                    Row(horizontalArrangement = Arrangement.End) {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = "image",
-                            tint = Color.Red, modifier = Modifier
-                                .size(50.dp)
-                                .padding(horizontal = 4.dp)
-                                .clickable(onClick = {
-                                    //edit appt
-                                })
-                        )
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "image",
@@ -189,7 +155,6 @@ fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,fname:String,lna
                                     }
                                 })
                         )
-                    }
                 }
             }
         }
