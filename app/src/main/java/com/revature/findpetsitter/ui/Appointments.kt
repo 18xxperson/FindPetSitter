@@ -2,6 +2,8 @@ package com.revature.findpetsitter.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,16 +27,30 @@ import com.revature.findpetsitter.BottNavBar
 import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import com.revature.findpetsitter.data.Appointment
+import com.revature.findpetsitter.datastore.StoreUserId
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppointmentScreen(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
-    var list = appointmentViewModel.fetchAllAppointments().observeAsState(listOf())
+    val context = LocalContext.current
+    val id = StoreUserId(context).getId.collectAsState(initial="0").value?.let{
+        it.toInt()
+    }
+    var list = id?.let { appointmentViewModel.fetchAppointmentsById(it).observeAsState(listOf()) }
+    val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
+
+//    var currentAppts = getCurrentAppts(list)
+//    var pastAppts = getPastAppts(list)
+
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
@@ -53,7 +69,7 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 4.dp, bottom = 4.dp)
+                            .padding(bottom = 4.dp)
                             .background(Color.LightGray)
                     ) {
                         Text(modifier = Modifier
@@ -63,50 +79,44 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                     }
                 }
 
-                items(list.value) { appt ->
-                    Card(
-                    ) {
-                        Column() {
-                            Text(text = appt.id.toString())
-                            Text(text = appt.user_id.toString())
-                            Text(text = appt.sitter_id.toString())
-                            appt.start_date?.let { it1 -> Text(text = it1) }
-                            appt.end_date?.let { it1 -> Text(text = it1) }
-                            appt.service_type?.let { it1 -> Text(text = it1) }
-                            Text(text = "$"+appt.total_price.toString())
-                        }
-
-                    //                    ApptCard(
-//                        fname = appt.,
-//                        lname = appt.lname,
-//                        startDate = appt.startDate,
-//                        endDate = appt.endDate,
-//                        price = appt.price,
-//                        type = appt.type
-//                    )
+                    //current appts
+                list?.value?.let { it1 ->
+                    items(it1.filter { LocalDate.parse(it.end_date,formatter) > LocalDate.now() }) { appt ->
+                        ApptCard(
+                            id = appt.id,
+                            appointmentViewModel = appointmentViewModel,
+                            name = appt.sitter_name!!,
+                            startDate = appt.start_date!!,
+                            endDate = appt.end_date!!,
+                            price = appt.total_price,
+                            type = appt.service_type!!
+                        )
                     }
                 }
                 stickyHeader {
                     ListDivier(text = "Past Services")
                 }
-                    items(pastappts) { appt ->
+                list?.value?.let { it1 ->
+                    items(it1.filter { LocalDate.parse(it.end_date,formatter) < LocalDate.now() }) { appt ->
                         PastApptCard(
-                            fname = appt.fname,
-                            lname = appt.lname,
-                            startDate = appt.startDate,
-                            endDate = appt.endDate,
-                            price = appt.price,
-                            type = appt.type
+                            fname = "Julie",
+                            lname = "Doddson",
+                            startDate = appt.start_date!!,
+                            endDate = appt.end_date!!,
+                            price = appt.total_price,
+                            type = appt.service_type!!
                         )
                     }
+                }
                 }
             }
         }
     }
-//}
 
 @Composable
-fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Float,type:String) {
+fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,name:String,startDate:String,endDate:String,price:Float,type:String) {
+    val scope= rememberCoroutineScope()
+
     Row(
         Modifier
             .fillMaxWidth()
@@ -117,7 +127,7 @@ fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Flo
                 Column(Modifier.padding(12.dp)) {
                     Row() {
                         Text(
-                            text = fname + " " + lname,
+                            text = name,
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colors.onSurface,
@@ -143,17 +153,6 @@ fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Flo
                     }
                 }
                 Column(Modifier.fillMaxSize(),horizontalAlignment = Alignment.End) {
-                    Row(horizontalArrangement = Arrangement.End) {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = "image",
-                            tint = Color.Red, modifier = Modifier
-                                .size(50.dp)
-                                .padding(horizontal = 4.dp)
-                                .clickable(onClick = {
-                                    //edit appt
-                                })
-                        )
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "image",
@@ -161,10 +160,11 @@ fun ApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Flo
                                 .size(50.dp)
                                 .padding(horizontal = 4.dp)
                                 .clickable(onClick = {
-                                    //delete appt
+                                    scope.launch {
+                                        appointmentViewModel.deleteAppointmentById(id)
+                                    }
                                 })
                         )
-                    }
                 }
             }
         }
