@@ -8,15 +8,15 @@ import com.google.gson.annotations.SerializedName
 //@Entity(tableName = "Sitters")
 data class Sitters(
     @SerializedName("id")
-    @PrimaryKey(autoGenerate = true) val id:Int,
+    @PrimaryKey(autoGenerate = true) var id:Int,
     @SerializedName("firstname")
-    @ColumnInfo(name = "firstname")val firstname:String,
+    @ColumnInfo(name = "firstname") var firstname:String,
     @SerializedName("lastname")
-    @ColumnInfo(name = "lastname") val lastname:String,
+    @ColumnInfo(name = "lastname") var lastname:String,
     @SerializedName("type")
-    @ColumnInfo(name = "type")val type:String,
+    @ColumnInfo(name = "type") var type:String,
     @SerializedName("rating")
-    @ColumnInfo(name="rating")val rating:Double,
-    @SerializedName("price") val price:Double
+    @ColumnInfo(name="rating") var rating:Double,
+    @SerializedName("price") var price:Double
 
     )
