@@ -1,7 +1,10 @@
 package com.revature.findpetsitter.ui
 
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
@@ -27,9 +30,13 @@ fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
 {
     val context= LocalContext.current
     val scope= rememberCoroutineScope()
+    val imageData=remember{ mutableStateOf(Uri.Builder().build())}
     val id=StoreUserId(context).getId.collectAsState(initial = "0").value?.let{
         it.toInt()
     }
+    val launcher= rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent(), onResult = {
+        imageData.value=it
+    })
     Scaffold(bottomBar = {
         BottNavBar(navController = navController)
     }) {
@@ -59,7 +66,9 @@ fun Addpet(navController: NavHostController,userViewModel: UserViewModel)
             Text(text = "description")
         })
         Spacer(modifier = Modifier.height(10.dp))
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = {
+            launcher.launch("image/*")
+        },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 56.dp)) {
