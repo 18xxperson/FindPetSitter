@@ -27,8 +27,10 @@ import com.revature.findpetsitter.BottNavBar
 import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import com.revature.findpetsitter.data.Appointment
+import com.revature.findpetsitter.datastore.StoreUserId
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -39,7 +41,11 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppointmentScreen(navController: NavHostController, appointmentViewModel: AppointmentsViewModel) {
-    var list = appointmentViewModel.fetchAllAppointments().observeAsState(listOf())
+    val context = LocalContext.current
+    val id = StoreUserId(context).getId.collectAsState(initial="0").value?.let{
+        it.toInt()
+    }
+    var list = id?.let { appointmentViewModel.fetchAppointmentsById(it).observeAsState(listOf()) }
     val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
 
 //    var currentAppts = getCurrentAppts(list)
@@ -74,21 +80,24 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                 }
 
                     //current appts
-                items(list.value.filter { LocalDate.parse(it.end_date,formatter) > LocalDate.now() }) { appt ->
-                    ApptCard(
-                        id = appt.id,
-                        appointmentViewModel = appointmentViewModel,
-                        name = appt.sitter_name!!,
-                        startDate = appt.start_date!!,
-                        endDate = appt.end_date!!,
-                        price = appt.total_price,
-                        type = appt.service_type!!
-                    )
+                list?.value?.let { it1 ->
+                    items(it1.filter { LocalDate.parse(it.end_date,formatter) > LocalDate.now() }) { appt ->
+                        ApptCard(
+                            id = appt.id,
+                            appointmentViewModel = appointmentViewModel,
+                            name = appt.sitter_name!!,
+                            startDate = appt.start_date!!,
+                            endDate = appt.end_date!!,
+                            price = appt.total_price,
+                            type = appt.service_type!!
+                        )
+                    }
                 }
                 stickyHeader {
                     ListDivier(text = "Past Services")
                 }
-                    items(list.value.filter { LocalDate.parse(it.end_date,formatter) < LocalDate.now() }) { appt ->
+                list?.value?.let { it1 ->
+                    items(it1.filter { LocalDate.parse(it.end_date,formatter) < LocalDate.now() }) { appt ->
                         PastApptCard(
                             fname = "Julie",
                             lname = "Doddson",
@@ -98,6 +107,7 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                             type = appt.service_type!!
                         )
                     }
+                }
                 }
             }
         }
