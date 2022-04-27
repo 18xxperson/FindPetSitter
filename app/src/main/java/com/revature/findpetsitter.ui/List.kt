@@ -1,5 +1,6 @@
 package com.revature.findpetsitter.ui
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -45,8 +46,8 @@ fun displayList(navController: NavController,type: String,sitterViewModel: Sitte
                         rating = sitter.rating,
                         type, navController = navController,
                         price = sitter.price,
-                        image = personlist[sitter.id% personlist.size]
-                        apptViewModel
+                        image = personlist[sitter.id%personlist.size],
+                        viewModel = apptViewModel
                     )
 
               //  }
@@ -94,16 +95,17 @@ fun SitterCard(firstname:String,lastname:String,rating:Double,type:String,navCon
             AsyncImage(model =ImageRequest.Builder(LocalContext.current)
                 .data(image)
                 .crossfade(true)
-                .build(), contentDescription = "")
+                .build(), contentDescription = "",
+               modifier=Modifier.padding(horizontal = 45.dp).size(100.dp)
+
+                )
         }
     }
 }
 
 var personlist= listOf("https://cdn.pixabay.com/photo/2013/03/14/06/08/person-93459_640.jpg",
     "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/dnmtn4ksijwyep0xmljk.jpg",
-"http://www.themarketingsage.com/wp-content/uploads/2020/10/image.jpg",
     "https://blogs.bmj.com/ebn/files/2015/11/Professor-Brendan-McCormack-low-res-2-683x1024.jpg",
-"https://get.pxhere.com/photo/person-people-girl-woman-hair-female-singer-brunette-portrait-model-young-fashion-clothing-lady-lip-hairstyle-smiling-smile-makeup-mouth-long-hair-make-up-dentist-dental-black-hair-face-nose-eyes-head-skin-lips-diversity-beauty-beautiful-teeth-wig-indian-attractive-lipstick-adult-cosmetics-persian-skincare-arabian-ethnicity-arab-photo-shoot-new-jersey-brown-hair-head-shot-hair-coloring-layered-hair-903073.jpg",
     "https://media.glamour.com/photos/56966e6716d0dc3747f0435b/master/pass/beauty-2014-04-lupita-nyongo-people-most-beautiful-woman-main.jpg",
   "https://cdn.acidcow.com/pics/20120426/most_beautiful_woman_01.jpg",
     "https://cdn.acidcow.com/pics/20120426/most_beautiful_woman_04.jpg",
