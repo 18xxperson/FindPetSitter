@@ -45,8 +45,8 @@ fun displayList(navController: NavController,type: String,sitterViewModel: Sitte
                         rating = sitter.rating,
                         type, navController = navController,
                         price = sitter.price,
-                        image = personlist[sitter.id% personlist.size]
-                        apptViewModel
+                        image = personlist[sitter.id% personlist.size],
+                        viewModel = apptViewModel
                     )
 
               //  }
