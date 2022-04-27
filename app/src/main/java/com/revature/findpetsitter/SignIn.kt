@@ -210,21 +210,24 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
+                    .align(Alignment.BottomCenter)
+                    .padding(20.dp),
+//                    .height(50.dp)
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
             ) {
-                Text(text = "Sign in")
+                Text(text = "Sign in", color = Color.White, fontWeight = FontWeight.ExtraBold)
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
-        ClickableText(
+//        Spacer(modifier = Modifier.height(20.dp))
+/*        ClickableText(
             text = AnnotatedString("Forgot password?"),
             onClick = { },
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily.Default
             )
-        )
+        ) */
     }
 
 }

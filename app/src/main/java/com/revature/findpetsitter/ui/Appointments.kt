@@ -46,7 +46,7 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
         it.toInt()
     }
     var list = id?.let { appointmentViewModel.fetchAppointmentsById(it).observeAsState(listOf()) }
-    val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
+    val formatter = DateTimeFormatter.ofPattern("M/d/yyyy")
 
 //    var currentAppts = getCurrentAppts(list)
 //    var pastAppts = getPastAppts(list)
@@ -54,7 +54,7 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
 
     Scaffold(topBar = {
         TopAppBar(backgroundColor = MaterialTheme.colors.primary,
-            title = {Text("Lawyer Search")})
+            title = {Text("Appointments")})
     },
         bottomBar = {
             BottNavBar(navController)
