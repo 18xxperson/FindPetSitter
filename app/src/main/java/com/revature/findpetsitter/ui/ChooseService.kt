@@ -37,16 +37,18 @@ fun chooseService(navHostController: NavHostController)
                         .build(),
                         contentDescription = "",modifier = Modifier.size(150.dp))
 
-                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Drop Off") },modifier=Modifier.fillMaxWidth()) {
+                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Drop Off") },
+                        modifier=Modifier.fillMaxWidth()) {
                         Text(text = "Drop Off")
                     }
                     AsyncImage(model = ImageRequest.Builder(LocalContext.current)
                         .data("https://www.samfordpetresort.com.au/wp-content/uploads/2017/01/petpickupservice-feat.jpg")
                         .crossfade(true)
                         .build(),
-                        contentDescription = "",modifier=Modifier.size(150.dp))
+                        contentDescription = "",modifier=Modifier.size(150.dp).offset(y= (-5).dp))
 
-                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Kennel Service") },modifier = Modifier.fillMaxWidth()) {
+                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Kennel Service") },
+                        modifier = Modifier.fillMaxWidth().offset(y= (-10).dp)) {
                         Text(text = "Kennel Service")
                     }
                         AsyncImage(model = ImageRequest.Builder(LocalContext.current)
@@ -57,7 +59,7 @@ fun chooseService(navHostController: NavHostController)
 
                     Button(onClick = {
                         navHostController.navigate(Routes.ListView.route + "/Pet Daycare")
-                    },modifier = Modifier.fillMaxWidth()) {
+                    },modifier = Modifier.fillMaxWidth().offset(y= (-10).dp)) {
                         Text(text = "Pet Daycare")
                     }
                     AsyncImage(model = ImageRequest.Builder(LocalContext.current)
@@ -66,7 +68,7 @@ fun chooseService(navHostController: NavHostController)
                         .build(),
                         contentDescription = "",modifier = Modifier
                             .size(140.dp)
-                            .padding(horizontal = 5.dp))
+                            .padding(horizontal = 5.dp).offset(y= (-20).dp))
 
 
             }
