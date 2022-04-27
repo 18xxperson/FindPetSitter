@@ -21,7 +21,7 @@ This is an app that is for people looking for someone to take care of the pet. T
 ## Contributors
 * Jonathan Work (https://github.com/18xxperson)
 * Brandon Tate (https://github.com/tatebl)
-* John Hall (https://github.com/)
+* John Hall (https://github.com/hlljh5)
 ## License
 
 This project uses the following license: Apache-2.0 (<https://www.apache.org/licenses/LICENSE-2.0.html>).
