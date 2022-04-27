@@ -27,7 +27,7 @@ fun chooseService(navHostController: NavHostController)
     }) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "What kind of service would you like?", fontSize = 20.sp)
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                     Button(onClick = { navHostController.navigate(Routes.ListView.route + "/HouseSitter") },modifier = Modifier.fillMaxWidth()) {
                         Text(text = "HouseSitting")
                     }
@@ -65,7 +65,7 @@ fun chooseService(navHostController: NavHostController)
                         .crossfade(true)
                         .build(),
                         contentDescription = "",modifier = Modifier
-                            .size(150.dp)
+                            .size(140.dp)
                             .padding(horizontal = 5.dp))
 
 
