@@ -12,7 +12,17 @@ This is an app that is for people looking for someone to take care of the pet. T
 * Retrofit
 * Room Database
 * Datastore
+## Features
+* Create account
+* Add pet
+* Find people for kind of service
+* schedule appointment
+* view appointments
 ## Contributors
-* Jonathan Work
-* Brandon Tate
-* John Hall
+* Jonathan Work (https://github.com/18xxperson)
+* Brandon Tate (https://github.com/tatebl)
+* John Hall (https://github.com/)
+## License
+
+This project uses the following license: Apache-2.0 (<https://www.apache.org/licenses/LICENSE-2.0.html>).
+## Screenshots
