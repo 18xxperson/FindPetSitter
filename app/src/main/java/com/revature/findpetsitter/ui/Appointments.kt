@@ -145,7 +145,7 @@ fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,name:String,star
                     }
                     Row() {
                         Text(
-                            text = "$" + price.toString() + " (" + type + ")",
+                            text = "$" + price.toInt().toString() + " (" + type + ")",
                             style = MaterialTheme.typography.body1,
                             color = MaterialTheme.colors.onSurface,
                             modifier = Modifier.padding(bottom = 4.dp)
@@ -204,7 +204,7 @@ fun PastApptCard(fname:String,lname:String,startDate:String,endDate:String,price
                     }
                     Row() {
                         Text(
-                            text = "$" + price.toString() + " (" + type + ")",
+                            text = "$" + price.toInt().toString() + " (" + type + ")",
                             style = MaterialTheme.typography.body1,
                             color = MaterialTheme.colors.onSurface,
                             modifier = Modifier.padding(bottom = 4.dp)

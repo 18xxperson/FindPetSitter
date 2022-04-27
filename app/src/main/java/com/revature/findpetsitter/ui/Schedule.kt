@@ -26,6 +26,8 @@ import com.revature.findpetsitter.data.Appointment
 import com.revature.findpetsitter.datastore.StoreUserId
 import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import kotlinx.coroutines.launch
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -144,7 +146,7 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     if (id != null) {
-                        OrderDetails(navController,appointmentViewModel,id,appointmentViewModel.clickedSitter!!.value.firstname,appointmentViewModel.clickedSitter!!.value.lastname, appointmentViewModel.clickedSitter!!.value.type, 45f, startDate,endDate)
+                        OrderDetails(navController,appointmentViewModel,id,appointmentViewModel.clickedSitter!!.value.firstname,appointmentViewModel.clickedSitter!!.value.lastname, appointmentViewModel.clickedSitter!!.value.type, appointmentViewModel.clickedSitter!!.value.price, startDate,endDate)
                     }
                 }
             }
@@ -154,7 +156,9 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,id:Int,firstName:String,lastName:String,type:String,price:Float, start_date:String,end_date:String) {
+fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,id:Int,firstName:String,lastName:String,type:String,price:Double, start_date:String,end_date:String) {
+    val df = DecimalFormat("#.##f")
+    df.roundingMode = RoundingMode.DOWN
     val scope= rememberCoroutineScope()
     val context = LocalContext.current
     val days = dayDifference(start_date,end_date)
@@ -167,7 +171,7 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
         start_date = start_date,
         end_date = end_date,
         service_type = type,
-        total_price = days*price
+        total_price = days*price.toFloat()
     )
 
     Column(Modifier.padding(horizontal = 55.dp)) {
@@ -190,7 +194,7 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
                 .fillMaxWidth()
                 .padding(vertical = 6.dp)) {
             Text(
-                text = "$" + price.toString() + "/day",
+                text = "$" + price.toInt().toString() + "/day",
                 style = MaterialTheme.typography.body1,
                 textAlign = TextAlign.Left
             )
@@ -207,7 +211,7 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 6.dp),
-            text = "Total: $" + (100*appointment.total_price).roundToInt()/100,
+            text = "Total: $" + appointment.total_price.toInt(),
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Left
