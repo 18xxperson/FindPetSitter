@@ -217,14 +217,14 @@ fun SignIn(navController: NavController, userViewModel: UserViewModel) {
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-        ClickableText(
+/*        ClickableText(
             text = AnnotatedString("Forgot password?"),
             onClick = { },
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily.Default
             )
-        )
+        ) */
     }
 
 }
