@@ -32,3 +32,10 @@ You can find this app in the Google Play Store called Pawliday Inn. These instru
 
 This project uses the following license: Apache-2.0 (<https://www.apache.org/licenses/LICENSE-2.0.html>).
 ## Screenshots
+![Screenshot](Screenshot_20220427_142842.png)
+![Screenshot](Screenshot_20220427_142910.png)
+![Screenshot](Screenshot_20220427_142941.png)
+![Screenshot](Screenshot_20220427_142959.png)
+![Screenshot](Screenshot_20220427_143028.png)
+![Screenshot](Screenshot_20220427_143045.png)
+![Screenshot](Screenshot_20220427_143110.png)
