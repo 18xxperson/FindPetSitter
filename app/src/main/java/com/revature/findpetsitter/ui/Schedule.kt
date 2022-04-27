@@ -38,7 +38,7 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
     val id = StoreUserId(context).getId.collectAsState(initial="0").value?.let{
         it.toInt()
     }
-    val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
+    val formatter = DateTimeFormatter.ofPattern("M/d/yyyy")
 
     var startDate by remember {mutableStateOf("4/26/2022")}
     var endDate by remember {mutableStateOf("4/26/2022")}
@@ -229,7 +229,7 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun dayDifference(start:String, end:String):Int {
-    val formatter = DateTimeFormatter.ofPattern("M/dd/yyyy")
+    val formatter = DateTimeFormatter.ofPattern("M/d/yyyy")
 
     var startDate = LocalDate.parse(start,formatter)
     var endDate = LocalDate.parse(end,formatter)
