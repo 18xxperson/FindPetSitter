@@ -2,6 +2,7 @@ package com.revature.findpetsitter.ui
 
 import android.app.DatePickerDialog
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -155,6 +156,7 @@ fun ScheduleService(navController: NavHostController, appointmentViewModel: Appo
 @Composable
 fun OrderDetails(navController:NavHostController,appointmentViewModel:AppointmentsViewModel,id:Int,firstName:String,lastName:String,type:String,price:Float, start_date:String,end_date:String) {
     val scope= rememberCoroutineScope()
+    val context = LocalContext.current
     val days = dayDifference(start_date,end_date)
 
     //fake appointment to insert to db for testing
@@ -216,10 +218,15 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
         horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
             //insert fake appt into db
-            scope.launch {
-                appointmentViewModel.insertAppointment(appointment)
+            if(dateRangeIsCorrect(start_date,end_date)) {
+                scope.launch {
+                    appointmentViewModel.insertAppointment(appointment)
+                }
+                navController.navigate(Routes.AppointmentScreen.route)
+            } else {
+                Toast.makeText(context,"Please enter a valid date range",Toast.LENGTH_LONG).show()
             }
-            navController.navigate(Routes.AppointmentScreen.route)
+
         },
             modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)) {
             Text(text = "Schedule")
@@ -231,9 +238,27 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
 fun dayDifference(start:String, end:String):Int {
     val formatter = DateTimeFormatter.ofPattern("M/d/yyyy")
 
+    if (dateRangeIsCorrect(start, end)) {
+        var startDate = LocalDate.parse(start, formatter)
+        var endDate = LocalDate.parse(end, formatter)
+        return ChronoUnit.DAYS.between(startDate, endDate).toInt()
+    } else {
+        return 0
+    }
+
+}
+
+//validating date range input
+@RequiresApi(Build.VERSION_CODES.O)
+fun dateRangeIsCorrect(start:String, end:String) : Boolean {
+    val formatter = DateTimeFormatter.ofPattern("M/d/yyyy")
     var startDate = LocalDate.parse(start,formatter)
     var endDate = LocalDate.parse(end,formatter)
-    return ChronoUnit.DAYS.between(startDate,endDate).toInt()
+
+    //start date greater or equal to today
+    //start date less than end date
+    return ((startDate<endDate)&&(startDate>=LocalDate.now()))
+
 }
 
 @Preview

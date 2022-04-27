@@ -233,19 +233,6 @@ fun ListDivier(text: String) {
 
 
 
-val currentappts = listOf(
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service")
-)
-
-val pastappts = listOf(
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service"),
-    TestAppointment("John","Smith","4/20/2022","4/25/2022",145.99f,"At-Home Service")
-)
 
 @Preview
 @Composable
