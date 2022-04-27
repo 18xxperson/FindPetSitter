@@ -6,6 +6,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -24,31 +25,28 @@ fun chooseService(navHostController: NavHostController)
     Scaffold(bottomBar = {
         BottNavBar(navController = navHostController)
     }) {
-            Column() {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "What kind of service would you like?", fontSize = 20.sp)
-                Spacer(modifier = Modifier.height(20.dp))
-                Row() {
-                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/HouseSitter") }) {
+                Spacer(modifier = Modifier.height(10.dp))
+                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/HouseSitter") },modifier = Modifier.fillMaxWidth()) {
                         Text(text = "HouseSitting")
                     }
                     AsyncImage(model = ImageRequest.Builder(LocalContext.current)
                         .data("https://www.theconstantrambler.com/wp-content/uploads/2015/04/housesitting-1280x851.jpg")
                         .crossfade(true)
                         .build(),
-                        contentDescription = "",)
-                }
-                Row() {
-                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Drop Off") }) {
+                        contentDescription = "",modifier = Modifier.size(150.dp))
+
+                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Drop Off") },modifier=Modifier.fillMaxWidth()) {
                         Text(text = "Drop Off")
                     }
                     AsyncImage(model = ImageRequest.Builder(LocalContext.current)
                         .data("https://www.samfordpetresort.com.au/wp-content/uploads/2017/01/petpickupservice-feat.jpg")
                         .crossfade(true)
                         .build(),
-                        contentDescription = "",)
-                }
-                Row() {
-                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Kennel Service") }) {
+                        contentDescription = "",modifier=Modifier.size(150.dp))
+
+                    Button(onClick = { navHostController.navigate(Routes.ListView.route + "/Kennel Service") },modifier = Modifier.fillMaxWidth()) {
                         Text(text = "Kennel Service")
                     }
                         AsyncImage(model = ImageRequest.Builder(LocalContext.current)
@@ -57,11 +55,9 @@ fun chooseService(navHostController: NavHostController)
                             .build(),
                             contentDescription = "",modifier = Modifier.size(150.dp))
 
-                }
-                Row() {
                     Button(onClick = {
                         navHostController.navigate(Routes.ListView.route + "/Pet Daycare")
-                    }) {
+                    },modifier = Modifier.fillMaxWidth()) {
                         Text(text = "Pet Daycare")
                     }
                     AsyncImage(model = ImageRequest.Builder(LocalContext.current)
@@ -69,9 +65,9 @@ fun chooseService(navHostController: NavHostController)
                         .crossfade(true)
                         .build(),
                         contentDescription = "",modifier = Modifier
-                            .size(200.dp)
+                            .size(140.dp)
                             .padding(horizontal = 5.dp))
-                }
+
 
             }
 
