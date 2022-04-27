@@ -3,6 +3,7 @@ package com.revature.findpetsitter
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -203,9 +205,13 @@ fun CreateAccount(navController: NavController, userViewModel: UserViewModel) {
                 }
             },
             content = {
-                Text(text = "Sign Up", color = Color.White)
+                Text(text = "Sign Up", color = Color.White, fontWeight = FontWeight.ExtraBold)
             },
 //            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
+            modifier = Modifier
+                .width(200.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue),
+            shape = RoundedCornerShape(50.dp)
         )
     }
 
