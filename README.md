@@ -13,6 +13,6 @@ This is an app that is for people looking for someone to take care of the pet. T
 * Room Database
 * Datastore
 ## Contributors
-Jonathan Work
-Brandon Tate
-John Hall
+* Jonathan Work
+* Brandon Tate
+* John Hall
