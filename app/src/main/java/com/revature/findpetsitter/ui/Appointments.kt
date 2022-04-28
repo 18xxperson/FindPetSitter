@@ -1,7 +1,6 @@
 package com.revature.findpetsitter.ui
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -13,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,15 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.revature.findpetsitter.BottNavBar
 import com.revature.findpetsitter.viewmodel.AppointmentsViewModel
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.LiveData
-import com.revature.findpetsitter.data.Appointment
 import com.revature.findpetsitter.datastore.StoreUserId
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -99,8 +93,7 @@ fun AppointmentScreen(navController: NavHostController, appointmentViewModel: Ap
                 list?.value?.let { it1 ->
                     items(it1.filter { LocalDate.parse(it.end_date,formatter) < LocalDate.now() }) { appt ->
                         PastApptCard(
-                            fname = "Julie",
-                            lname = "Doddson",
+                            name = appt.sitter_name!!,
                             startDate = appt.start_date!!,
                             endDate = appt.end_date!!,
                             price = appt.total_price,
@@ -172,7 +165,13 @@ fun ApptCard(appointmentViewModel: AppointmentsViewModel,id:Int,name:String,star
 }
 
 @Composable
-fun PastApptCard(fname:String,lname:String,startDate:String,endDate:String,price:Float,type:String) {
+fun PastApptCard(
+    startDate: String,
+    endDate: String,
+    price: Float,
+    type: String,
+    name: String
+) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -186,7 +185,7 @@ fun PastApptCard(fname:String,lname:String,startDate:String,endDate:String,price
                 Column(Modifier.padding(12.dp)) {
                     Row() {
                         Text(
-                            text = fname + " " + lname,
+                            text = name,
                             fontWeight = FontWeight.Bold,
                             style = MaterialTheme.typography.body1,
                             color = MaterialTheme.colors.onSurface,

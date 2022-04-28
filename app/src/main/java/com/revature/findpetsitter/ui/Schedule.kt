@@ -221,7 +221,7 @@ fun OrderDetails(navController:NavHostController,appointmentViewModel:Appointmen
     Column(Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
-            //insert fake appt into db
+            //insert appt into db
             if(dateRangeIsCorrect(start_date,end_date)) {
                 scope.launch {
                     appointmentViewModel.insertAppointment(appointment)
